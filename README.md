@@ -165,6 +165,9 @@ notebooks/                   Cuaderno de Colab (+ copia con salidas)
 `record_run.py` importa el **mismo** prompt, esquema y herramientas que la app:
 no existen dos copias que mantener sincronizadas.
 
+El **por qué** de cada decisión —las mediciones, lo que se descartó y los cuatro
+hallazgos que cambiaron el código— está en [`BITACORA.md`](BITACORA.md).
+
 ---
 
 ## Regenerar todo
