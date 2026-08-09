@@ -1,0 +1,15 @@
+# Tema claro y de alto contraste: se proyecta y se comprime bien en
+# videollamada. El modo oscuro pierde detalle cuando Zoom o Teams recortan
+# el ancho de banda.
+[theme]
+base = "light"
+primaryColor = "#2563EB"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F9FC"
+textColor = "#1F2937"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

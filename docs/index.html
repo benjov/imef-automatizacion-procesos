@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatización de Procesos Financieros · IMEF Nacional 2026</title>
+<meta name="description" content="Materiales y demos en vivo de la sesión del Comité Técnico Nacional de Transformación y Economía Digital del IMEF, por Benjamín Oliva Vázquez.">
+<style>
+  :root{
+    --azul:#1E3A5F; --azul-vivo:#2563EB; --azul-claro:#7FB1E8;
+    --ambar:#B45309; --teal:#0D9488;
+    --fondo:#F7F9FC; --tarjeta:#FFFFFF; --tinta:#1F2937; --gris:#6B7280;
+    --borde:#E5E7EB; --sombra:0 1px 3px rgba(16,42,67,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --fondo:#0F1720; --tarjeta:#182230; --tinta:#E8EEF5; --gris:#9BA9BA;
+      --borde:#2A3746; --azul:#0F2239; --sombra:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--tinta);background:var(--fondo);line-height:1.65}
+  .cont{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+  a{color:var(--azul-vivo)}
+
+  header.hero{background:linear-gradient(160deg,#1E3A5F 0%,#16304e 55%,#0F2239 100%);
+              color:#fff;padding:4rem 0 3rem;text-align:center}
+  .hero .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;
+                color:#9DB8D9;margin-bottom:.9rem}
+  .hero h1{font-size:clamp(1.8rem,4.6vw,3rem);line-height:1.15;margin-bottom:.9rem}
+  .hero .sub{font-size:1.1rem;color:#C9D8EA;max-width:640px;margin:0 auto}
+  .hero .sub strong{color:#fff}
+  .chips{margin-top:1.4rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+  .chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+        color:#E8F0FA;font-size:.85rem;padding:.3rem .8rem;border-radius:999px}
+
+  section{padding:3rem 0}
+  h2{font-size:1.6rem;color:var(--tinta);margin-bottom:.5rem}
+  .lead{color:var(--gris);margin-bottom:1.6rem;max-width:70ch}
+
+  .tesis{background:var(--tarjeta);border-left:5px solid var(--azul-vivo);
+         border-radius:0 12px 12px 0;padding:1.4rem 1.6rem;box-shadow:var(--sombra)}
+  .tesis p{font-size:1.15rem}
+
+  .rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem}
+  .tarjeta{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;
+           padding:1.6rem;display:flex;flex-direction:column;box-shadow:var(--sombra)}
+  .tarjeta .icono{font-size:2rem;margin-bottom:.5rem}
+  .tarjeta h3{font-size:1.15rem;margin-bottom:.4rem}
+  .tarjeta p{color:var(--gris);flex:1;margin-bottom:1.1rem;font-size:.97rem}
+  .boton{display:inline-block;text-align:center;background:var(--azul-vivo);color:#fff;
+         text-decoration:none;font-weight:600;padding:.7rem 1.1rem;border-radius:10px}
+  .boton:hover{background:#1D4ED8}
+  .boton.sec{background:transparent;color:var(--azul-vivo);border:2px solid var(--azul-vivo)}
+
+  /* calculadora */
+  .calc{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;
+        padding:1.8rem;box-shadow:var(--sombra)}
+  .campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem}
+  .campo label{display:block;font-size:.88rem;color:var(--gris);margin-bottom:.3rem}
+  .campo input{width:100%;padding:.55rem .7rem;font-size:1.05rem;border-radius:8px;
+               border:1px solid var(--borde);background:var(--fondo);color:var(--tinta);
+               font-variant-numeric:tabular-nums}
+  .salida{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+          gap:1rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px dashed var(--borde)}
+  .cifra .n{font-size:1.75rem;font-weight:700;font-variant-numeric:tabular-nums;
+            color:var(--azul-vivo);line-height:1.2}
+  .cifra .n.verde{color:var(--teal)}
+  .cifra .e{font-size:.85rem;color:var(--gris)}
+  .nota{margin-top:1.2rem;font-size:.88rem;color:var(--gris)}
+
+  table{width:100%;border-collapse:collapse;background:var(--tarjeta);
+        border:1px solid var(--borde);border-radius:12px;overflow:hidden}
+  th,td{padding:.7rem .9rem;text-align:left;border-bottom:1px solid var(--borde);font-size:.95rem}
+  th{background:rgba(37,99,235,.07);font-size:.82rem;text-transform:uppercase;
+     letter-spacing:.05em;color:var(--gris)}
+  tr:last-child td{border-bottom:none}
+  .tabla-scroll{overflow-x:auto}
+
+  footer{background:var(--azul);color:#C9D8EA;padding:2.2rem 0;text-align:center;font-size:.94rem}
+  footer a{color:var(--azul-claro);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     URLs de las demos. Editar SÓLO aquí después de desplegar.
+================================================================ -->
+<script>
+  const URLS = {
+    demo1: "https://imef-automatizacion-procesos.streamlit.app/",
+    demo2: "https://imef-automatizacion-procesos.streamlit.app/demo2_agente",
+    colab: "https://colab.research.google.com/github/benjov/imef-automatizacion-procesos/blob/main/notebooks/adapta_el_conciliador.ipynb",
+    repo:  "https://github.com/benjov/imef-automatizacion-procesos"
+  };
+</script>
+
+<header class="hero">
+  <div class="cont">
+    <div class="kicker">IMEF · Comité Técnico Nacional de Transformación y Economía Digital</div>
+    <h1>Automatización de Procesos Financieros</h1>
+    <p class="sub">
+      <strong>Benjamín Oliva Vázquez</strong><br>
+      Socio en Analítica Boutique · Principal en Games Economics<br>
+      Sesión virtual · 13 de agosto de 2026
+    </p>
+    <div class="chips">
+      <span class="chip">Conciliación bancaria en vivo</span>
+      <span class="chip">Agente con herramientas</span>
+      <span class="chip">Código abierto</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="cont">
+    <div class="tesis">
+      <p><strong>El 90% de tu proceso lo resuelve una regla. El 10% que la rompe
+      es donde se va el 80% del tiempo del área — y ahí, sólo ahí, es donde la
+      IA cambia la aritmética.</strong></p>
+      <p style="color:var(--gris);margin-top:.7rem;font-size:1rem">
+        Automatizar no es comprar un modelo. Es saber qué parte del proceso
+        merece código determinista, qué parte merece un modelo, y qué parte no
+        se automatiza nunca porque es precisamente donde alguien tiene que
+        firmar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cont">
+    <h2>Las demos</h2>
+    <p class="lead">Las mismas que se corrieron en la sesión, con datos
+    sintéticos. El repositorio es público: el motor de conciliación, los
+    prompts y los esquemas están completos y se pueden leer línea por línea.</p>
+    <div class="rejilla">
+      <div class="tarjeta">
+        <div class="icono">🏦</div>
+        <h3>1 · Conciliación bancaria</h3>
+        <p>226 movimientos. El motor determinista cuadra el 93.8% en menos de un
+        milisegundo y por cero pesos. Las 14 partidas que sobreviven van al
+        modelo, que devuelve un objeto validado contra esquema — no un párrafo.</p>
+        <a class="boton" id="l-demo1" href="#">Abrir la demo</a>
+      </div>
+      <div class="tarjeta">
+        <div class="icono">🤖</div>
+        <h3>2 · Agente de cierre</h3>
+        <p>Se le da un objetivo, no un procedimiento. Decide qué herramientas
+        usar, lee el manual de políticas y encola asientos en borrador. El
+        control de autorización vive en el código: rechaza lo que la política
+        prohíbe, diga lo que diga el modelo.</p>
+        <a class="boton" id="l-demo2" href="#">Abrir la demo</a>
+      </div>
+      <div class="tarjeta">
+        <div class="icono">🧪</div>
+        <h3>3 · Adáptalo a tu banco</h3>
+        <p>Cuaderno de Colab: tu estado de cuenta no tiene estas columnas.
+        Pídele a la IA que escriba el mapeo y corre el mismo motor sobre tu
+        propio archivo, sin instalar nada.</p>
+        <a class="boton sec" id="l-colab" href="#">Abrir en Colab</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cont">
+    <h2>¿Cuánto libera automatizar tu conciliación?</h2>
+    <p class="lead">Los números vienen precargados con los de la demo. Cámbialos
+    por los tuyos: la calculadora corre en tu navegador y no envía nada a
+    ningún lado.</p>
+    <div class="calc">
+      <div class="campos">
+        <div class="campo">
+          <label for="movs">Movimientos a conciliar al mes</label>
+          <input type="number" id="movs" value="226" min="1" step="10">
+        </div>
+        <div class="campo">
+          <label for="auto">% que resuelve una regla determinista</label>
+          <input type="number" id="auto" value="94" min="0" max="100" step="1">
+        </div>
+        <div class="campo">
+          <label for="mins">Minutos por partida en excepción</label>
+          <input type="number" id="mins" value="12" min="1" step="1">
+        </div>
+        <div class="campo">
+          <label for="costo">Costo por hora del analista (MXN)</label>
+          <input type="number" id="costo" value="320" min="0" step="10">
+        </div>
+      </div>
+
+      <div class="salida">
+        <div class="cifra"><div class="n" id="o-exc">—</div>
+          <div class="e">partidas en excepción al mes</div></div>
+        <div class="cifra"><div class="n" id="o-horas">—</div>
+          <div class="e">horas/mes que hoy se van en ellas</div></div>
+        <div class="cifra"><div class="n verde" id="o-ahorro">—</div>
+          <div class="e">costo anual de esas horas</div></div>
+        <div class="cifra"><div class="n" id="o-tokens">—</div>
+          <div class="e">costo anual del modelo</div></div>
+      </div>
+
+      <p class="nota" id="nota">—</p>
+      <p class="nota">
+        <strong>Cómo leer esto.</strong> La cifra verde no es un ahorro
+        automático: es el tamaño del problema, el techo de lo que está en juego.
+        Lo que la automatización recupera de verdad depende de cuánto de esa
+        revisión siga necesitando criterio humano — y de que las horas liberadas
+        se reinviertan en algo. «Horas ahorradas» sólo es retorno si alguien
+        puede decir en qué se gastaron.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cont">
+    <h2>Qué automatizar y con qué</h2>
+    <p class="lead">El marco de decisión de la sesión, en una tabla. La pregunta
+    no es «¿le meto IA?» sino «¿qué clase de problema es este renglón?».</p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr>
+          <th>Si el problema es…</th><th>La herramienta correcta es…</th>
+          <th>Por qué</th><th>En la demo</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Regla exacta y estable</td><td>Código determinista</td>
+              <td>Exacto, auditable, gratis, en milisegundos</td>
+              <td>Cruce por importe y fecha</td></tr>
+          <tr><td>Combinatoria acotada</td><td>Algoritmo de búsqueda</td>
+              <td>Un modelo no debe sumar subconjuntos</td>
+              <td>Un depósito que liquida 3 facturas</td></tr>
+          <tr><td>Patrón repetido con muchos datos históricos</td>
+              <td>Modelo estadístico</td>
+              <td>Barato por predicción, se mide con métricas</td>
+              <td>Fuera de alcance en esta sesión</td></tr>
+          <tr><td>Texto libre, contexto y política</td><td>Modelo de lenguaje</td>
+              <td>Lee, relaciona y explica; verificable contra esquema</td>
+              <td>Clasificar las 14 excepciones</td></tr>
+          <tr><td>Varios pasos con decisiones intermedias</td><td>Agente con herramientas</td>
+              <td>Orquesta; la aritmética sigue siendo código</td>
+              <td>Armar el paquete de cierre</td></tr>
+          <tr><td>Consecuencia irreversible o responsabilidad legal</td>
+              <td><strong>Una persona</strong></td>
+              <td>No se automatiza la firma</td>
+              <td>Autorizar cada asiento</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="cont">
+    <div class="rejilla">
+      <div class="tarjeta">
+        <div class="icono">📦</div>
+        <h3>El repositorio</h3>
+        <p>Motor, prompts, esquemas, datos sintéticos y las pruebas. Todo lo que
+        se vio en pantalla, para leerlo o clonarlo.</p>
+        <a class="boton sec" id="l-repo" href="#">Ver en GitHub</a>
+      </div>
+      <div class="tarjeta">
+        <div class="icono">✉️</div>
+        <h3>¿Lo conversamos?</h3>
+        <p>Si quieres discutir cómo se ve este marco aplicado a un proceso
+        concreto de tu área, escríbeme.</p>
+        <a class="boton" href="mailto:benjamin@analiticaboutique.com.mx?subject=IMEF%20Nacional%20—%20Automatización%20de%20Procesos%20Financieros">Escribir un correo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="cont">
+    <p><strong>Benjamín Oliva Vázquez</strong> · Socio en Analítica Boutique ·
+       Principal en Games Economics</p>
+    <p style="margin-top:.5rem">
+      <a href="mailto:benjamin@analiticaboutique.com.mx">benjamin@analiticaboutique.com.mx</a>
+    </p>
+    <p style="margin-top:1rem;font-size:.85rem;opacity:.75">
+      Todos los datos de las demos son sintéticos y se generan con semilla fija.
+      Ninguna cifra corresponde a una empresa real.
+    </p>
+  </div>
+</footer>
+
+<script>
+  for (const [id, url] of Object.entries({
+    "l-demo1": URLS.demo1, "l-demo2": URLS.demo2,
+    "l-colab": URLS.colab, "l-repo": URLS.repo
+  })) {
+    const a = document.getElementById(id);
+    if (a) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  }
+
+  const mxn = n => "$" + Math.round(n).toLocaleString("es-MX");
+  const campos = ["movs", "auto", "mins", "costo"].map(i => document.getElementById(i));
+
+  function calcular() {
+    const movs  = Math.max(0, +document.getElementById("movs").value  || 0);
+    const auto  = Math.min(100, Math.max(0, +document.getElementById("auto").value || 0));
+    const mins  = Math.max(0, +document.getElementById("mins").value  || 0);
+    const costo = Math.max(0, +document.getElementById("costo").value || 0);
+
+    const exc     = movs * (1 - auto / 100);
+    const horas   = exc * mins / 60;
+    const anual   = horas * costo * 12;
+    // ~$3 MXN por corrida en la demo, con margen de 2x por si el volumen crece.
+    const tokens  = Math.max(1, exc / 14) * 6 * 12;
+
+    document.getElementById("o-exc").textContent    = Math.round(exc).toLocaleString("es-MX");
+    document.getElementById("o-horas").textContent  = horas.toFixed(1);
+    document.getElementById("o-ahorro").textContent = mxn(anual);
+    document.getElementById("o-tokens").textContent = mxn(tokens);
+
+    const razon = tokens > 0 ? anual / tokens : 0;
+    document.getElementById("nota").innerHTML = horas < 1
+      ? "Con este volumen el proceso ya es pequeño: automatizarlo es una decisión de consistencia y trazabilidad, no de ahorro."
+      : "Por cada peso de modelo, hay <strong>" +
+        Math.round(razon).toLocaleString("es-MX") +
+        " pesos</strong> de tiempo humano en juego. Esa proporción — no el precio del token — es la que decide.";
+  }
+
+  campos.forEach(c => c && c.addEventListener("input", calcular));
+  calcular();
+</script>
+
+</body>
+</html>

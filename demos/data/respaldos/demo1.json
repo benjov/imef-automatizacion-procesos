@@ -1,0 +1,246 @@
+{
+  "modelo": "claude-opus-5",
+  "esfuerzo": "low",
+  "rescatado_por": null,
+  "partidas": [
+    {
+      "ids": [
+        "B0116"
+      ],
+      "titulo": "Traspaso a cuenta de inversión 7781",
+      "categoria": "partida_de_corte",
+      "explicacion": "El banco registra un traspaso de $250,000.00 a la cuenta de inversión 7781 el 30/09 y no hay póliza en libros al corte. Es un movimiento entre cuentas propias, no un gasto, pero no puede registrarse sin confirmar la cuenta de inversión y su cuenta contable, que no está en el catálogo de la sección 7.3.",
+      "accion": "dejar_en_conciliacion",
+      "asiento": [],
+      "confianza": "media",
+      "requiere_humano": true,
+      "politica": "7.4"
+    },
+    {
+      "ids": [
+        "B0094",
+        "L0093"
+      ],
+      "titulo": "Diferencia cambiaria en pago USD 9,600",
+      "categoria": "diferencia_cambiaria",
+      "explicacion": "El mismo pago a Global Bearings Corp se registró en libros por $184,275.00 (TC 19.1953) y el banco lo cargó por $184,320.50. La diferencia de $45.50 corresponde al tipo de cambio aplicado por el banco y se reconoce como pérdida cambiaria.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "705-003 Pérdida cambiaria",
+          "cargo": 45.5,
+          "abono": 0
+        },
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 0,
+          "abono": 45.5
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    },
+    {
+      "ids": [
+        "B0043"
+      ],
+      "titulo": "Depósito en efectivo sin referencia $93,600",
+      "categoria": "cobro_no_identificado",
+      "explicacion": "Depósito en sucursal por $93,600.00 sin referencia de cliente. Coincide exacto con FAC-2288 de Grupo Ferretero del Bajío, pero existe FAC-2329 por $93,615.00, importe muy similar, y al 14/09 la FAC-2288 aún no estaba vencida. Con dos candidatas cercanas no procede aplicarlo: se registra como anticipo por identificar y se pide el comprobante al cliente.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 93600,
+          "abono": 0
+        },
+        {
+          "cuenta": "205-003 Anticipos de clientes por identificar",
+          "cargo": 0,
+          "abono": 93600
+        }
+      ],
+      "confianza": "media",
+      "requiere_humano": true,
+      "politica": "7.6"
+    },
+    {
+      "ids": [
+        "L0103"
+      ],
+      "titulo": "Cheque 10847 no cobrado al corte",
+      "categoria": "cheque_en_transito",
+      "explicacion": "El cheque 10847 por $67,800.00 a favor de Mantenimiento Industrial Torres está registrado en libros el 29/09 y no aparece cobrado en el estado de cuenta. Es cheque en tránsito y no genera asiento; se vigila su cobro y, de rebasar 90 días, se cancela y se reintegra el pasivo.",
+      "accion": "dejar_en_conciliacion",
+      "asiento": [],
+      "confianza": "alta",
+      "requiere_humano": false,
+      "politica": "7.4"
+    },
+    {
+      "ids": [
+        "B0077",
+        "L0074"
+      ],
+      "titulo": "Transposición de dígitos en pago Aceros Monclova",
+      "categoria": "error_de_captura",
+      "explicacion": "El banco cargó $48,590.00 y la póliza EGR-0109 se capturó por $45,890.00; la diferencia de $2,700.00 es múltiplo de 9 y corresponde a la inversión de dígitos 58/85. El importe correcto es el del banco, por lo que debe corregirse la póliza contra la cuenta del proveedor, no crearse un gasto.",
+      "accion": "corregir_poliza",
+      "asiento": [],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.2"
+    },
+    {
+      "ids": [
+        "B0066"
+      ],
+      "titulo": "Cargo no reconocido REF 88213",
+      "categoria": "movimiento_no_reconocido",
+      "explicacion": "Cargo de $34,900.00 sin operación propia que lo respalde ni contraparte identificable. Debe escalarse el mismo día al Contralor y levantarse aclaración ante BBVA dentro del plazo de 90 días naturales. Queda prohibido registrarlo contablemente antes de agotar la aclaración.",
+      "accion": "reclamar_al_banco",
+      "asiento": [],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.5"
+    },
+    {
+      "ids": [
+        "B0060"
+      ],
+      "titulo": "Cargo duplicado servicio administración empresarial",
+      "categoria": "cargo_duplicado",
+      "explicacion": "El 18/09 aparecen dos cargos idénticos de $12,500.00 por servicio de administración empresarial (B0059 y B0060). El segundo no tiene soporte propio, por lo que se presume duplicidad del banco. Se reclama la devolución y no se registra hasta la respuesta de la institución.",
+      "accion": "reclamar_al_banco",
+      "asiento": [],
+      "confianza": "media",
+      "requiere_humano": true,
+      "politica": "7.5"
+    },
+    {
+      "ids": [
+        "B0109"
+      ],
+      "titulo": "Intereses ganados de inversión",
+      "categoria": "rendimiento_financiero",
+      "explicacion": "Abono de $8,742.15 por intereses generados en la inversión, no registrado en libros. Se reconoce como producto financiero del periodo.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 8742.15,
+          "abono": 0
+        },
+        {
+          "cuenta": "703-001 Productos financieros",
+          "cargo": 0,
+          "abono": 8742.15
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    },
+    {
+      "ids": [
+        "B0106"
+      ],
+      "titulo": "Comisión por manejo de cuenta",
+      "categoria": "comision_bancaria",
+      "explicacion": "Cargo de $1,450.00 por manejo de cuenta del 30/09 no registrado en libros. Corresponde a gasto del periodo por comisiones bancarias.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "705-001 Comisiones bancarias",
+          "cargo": 1450,
+          "abono": 0
+        },
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 0,
+          "abono": 1450
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    },
+    {
+      "ids": [
+        "B0110"
+      ],
+      "titulo": "ISR retenido sobre intereses",
+      "categoria": "rendimiento_financiero",
+      "explicacion": "Retención de $1,223.90 aplicada por el banco sobre los intereses ganados del mes. Se reconoce como impuesto retenido por acreditar, no como gasto.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "113-004 ISR retenido por acreditar",
+          "cargo": 1223.9,
+          "abono": 0
+        },
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 0,
+          "abono": 1223.9
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    },
+    {
+      "ids": [
+        "B0107"
+      ],
+      "titulo": "Comisión por SPEI enviados (87 operaciones)",
+      "categoria": "comision_bancaria",
+      "explicacion": "Cargo de $890.00 por 87 transferencias SPEI del mes, no registrado en libros. Es gasto por comisiones bancarias del periodo.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "705-001 Comisiones bancarias",
+          "cargo": 890,
+          "abono": 0
+        },
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 0,
+          "abono": 890
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    },
+    {
+      "ids": [
+        "B0111"
+      ],
+      "titulo": "IVA de comisiones bancarias",
+      "categoria": "comision_bancaria",
+      "explicacion": "Cargo de $374.40 por IVA de las comisiones del mes ($1,450.00 más $890.00 al 16% da $374.40, lo que confirma su origen). Se registra como IVA acreditable pagado.",
+      "accion": "registrar_asiento",
+      "asiento": [
+        {
+          "cuenta": "118-002 IVA acreditable pagado",
+          "cargo": 374.4,
+          "abono": 0
+        },
+        {
+          "cuenta": "102-001 Bancos BBVA",
+          "cargo": 0,
+          "abono": 374.4
+        }
+      ],
+      "confianza": "alta",
+      "requiere_humano": true,
+      "politica": "7.3"
+    }
+  ],
+  "tokens_entrada": 5173,
+  "tokens_salida": 3721,
+  "segundos": 43.75,
+  "grabado": "2026-08-08 23:29"
+}

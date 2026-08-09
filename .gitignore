@@ -1,0 +1,22 @@
+# --- Secretos. Este repo es PÚBLICO (GitHub Pages sirve docs/). ---
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# --- Sistema ---
+.DS_Store
+Thumbs.db
+
+# Artefacto temporal del cuaderno de Colab
+demos/data/_traducido.csv

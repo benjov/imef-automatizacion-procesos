@@ -1,0 +1,1156 @@
+{
+  "modelo": "claude-opus-5",
+  "corridas": {
+    "Cierre completo del mes": {
+      "modelo": "claude-opus-5",
+      "esfuerzo": "low",
+      "instruccion": "Concilia la cuenta del periodo y prepárame el paquete de cierre: resuelve lo que se pueda resolver conforme a política, encola los asientos que correspondan y dime qué necesita mi decisión.",
+      "pasos": [
+        {
+          "tipo": "texto",
+          "texto": "Voy a ejecutar la conciliación con la tolerancia de materialidad de la política y, en paralelo, leer las secciones del manual que previsiblemente apliquen."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "ejecutar_conciliacion",
+          "args": {
+            "tolerancia_pesos": 500
+          },
+          "resultado": {
+            "movimientos_totales": 226,
+            "conciliados": 214,
+            "tasa_automatica": 0.9469,
+            "milisegundos": 0.5,
+            "monto_en_excepcion": 565960.45,
+            "niveles_de_cruce": {
+              "N1 · Importe y fecha exactos": 152,
+              "N2 · Importe exacto, desfase ≤3 días hábiles": 56,
+              "N3 · Agrupación 1:3": 4,
+              "N4 · Diferencia bajo umbral de materialidad": 2
+            },
+            "partidas_sin_conciliar": [
+              {
+                "id": "B0043",
+                "origen": "banco",
+                "fecha": "2026-09-14",
+                "monto": 93600.0,
+                "descripcion": "DEPOSITO EFECTIVO SUCURSAL 0471",
+                "referencia": "DEP 0471",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0060",
+                "origen": "banco",
+                "fecha": "2026-09-18",
+                "monto": -12500.0,
+                "descripcion": "CARGO SERVICIO ADMON EMPRESARIAL",
+                "referencia": "CARGO SERV",
+                "tercero": "",
+                "señales": [
+                  "Existe otro movimiento idéntico el mismo día (B0059): posible duplicado."
+                ]
+              },
+              {
+                "id": "B0066",
+                "origen": "banco",
+                "fecha": "2026-09-19",
+                "monto": -34900.0,
+                "descripcion": "CARGO NO RECONOCIDO REF 88213",
+                "referencia": "REF 88213",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0077",
+                "origen": "banco",
+                "fecha": "2026-09-22",
+                "monto": -48590.0,
+                "descripcion": "SPEI ENVIADO ACEROS MONCLOVA",
+                "referencia": "SPEI 751904",
+                "tercero": "",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (L0074, $-45,890.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "L0074",
+                "origen": "libros",
+                "fecha": "2026-09-22",
+                "monto": -45890.0,
+                "descripcion": "Pago parcial OC-8841",
+                "referencia": "EGR-0109",
+                "tercero": "Aceros Monclova",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (B0077, $-48,590.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "L0103",
+                "origen": "libros",
+                "fecha": "2026-09-29",
+                "monto": -67800.0,
+                "descripcion": "Cheque 10847 - anticipo obra",
+                "referencia": "EGR-0107",
+                "tercero": "Mantenimiento Industrial Torres",
+                "señales": []
+              },
+              {
+                "id": "B0116",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -250000.0,
+                "descripcion": "TRASPASO A CUENTA INVERSION 7781",
+                "referencia": "TRASP INV",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0109",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": 8742.15,
+                "descripcion": "INTERESES GANADOS INVERSION",
+                "referencia": "INT GAN",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0106",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1450.0,
+                "descripcion": "COMISION MANEJO DE CUENTA",
+                "referencia": "COM 0930",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0110",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1223.9,
+                "descripcion": "ISR RETENIDO INTERESES",
+                "referencia": "ISR INT",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0107",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -890.0,
+                "descripcion": "COMISION SPEI ENVIADOS (87 OPS)",
+                "referencia": "COM SPEI",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0111",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -374.4,
+                "descripcion": "IVA COMISIONES",
+                "referencia": "IVA COM",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_politica",
+          "args": {
+            "secciones": [
+              "7.1",
+              "7.2",
+              "7.3",
+              "7.4",
+              "7.5",
+              "7.6",
+              "7.7"
+            ]
+          },
+          "resultado": {
+            "secciones": {
+              "7.1": "## 7.1 Umbral de materialidad\n\n- **Materialidad de partida individual:** $500.00 MXN.\n  Las diferencias iguales o menores a este importe pueden regularizarse\n  directamente contra `705-002 Otros gastos financieros` sin autorización\n  adicional, siempre que se documente la causa.\n- **Materialidad acumulada del periodo:** $25,000.00 MXN.\n  Si la suma de partidas regularizadas por materialidad supera este importe,\n  la conciliación completa debe revisarse con el Contralor antes del cierre.",
+              "7.2": "## 7.2 Facultades de autorización de asientos de ajuste\n\n| Importe del asiento | Autoriza |\n|---|---|\n| Hasta $50,000.00 | Contador General |\n| $50,000.01 a $250,000.00 | Contralor |\n| Más de $250,000.00 | Dirección de Finanzas |\n\nNingún asiento de ajuste derivado de una conciliación puede registrarse en\nfirme sin la autorización que corresponda a su importe. Los asientos\npropuestos por herramientas automatizadas se registran **siempre en estatus\nde borrador** y requieren autorización explícita de una persona facultada.",
+              "7.3": "## 7.3 Cuentas de aplicación más frecuentes\n\n| Concepto | Cuenta |\n|---|---|\n| Comisiones bancarias | `705-001 Comisiones bancarias` |\n| IVA acreditable de comisiones | `118-002 IVA acreditable pagado` |\n| Intereses ganados | `703-001 Productos financieros` |\n| ISR retenido sobre intereses | `113-004 ISR retenido por acreditar` |\n| Diferencias cambiarias | `705-003 Pérdida cambiaria` / `703-002 Utilidad cambiaria` |\n| Otros gastos financieros no identificados | `705-002 Otros gastos financieros` |\n| Bancos — cuenta BBVA 0198 4471 92 | `102-001 Bancos BBVA` |\n| Clientes | `105-001 Clientes nacionales` |",
+              "7.4": "## 7.4 Partidas en conciliación (no generan asiento)\n\nSe dejan como partida en conciliación, sin registro contable, hasta que se\nresuelvan por sí mismas:\n\n- **Cheques en tránsito:** expedidos y registrados en libros, aún no cobrados\n  en el banco. Si superan **90 días** sin cobrarse, se cancelan y se reintegra\n  el pasivo.\n- **Depósitos en tránsito:** registrados en libros, aún no acreditados por el\n  banco al corte.\n- **Partidas de corte:** movimientos del banco cuya póliza corresponde al\n  periodo siguiente. Se documentan y se verifican en la conciliación del mes\n  siguiente.",
+              "7.5": "## 7.5 Movimientos no reconocidos\n\nCualquier cargo o abono del banco que no pueda vincularse a una operación\npropia **debe escalarse el mismo día** al Contralor y levantarse aclaración\nante la institución bancaria. **Está prohibido** regularizar contablemente un\nmovimiento no reconocido, cualquiera que sea su importe, antes de agotar la\naclaración bancaria. El plazo legal para objetar cargos ante la institución\nes de **90 días naturales**.",
+              "7.6": "## 7.6 Cobros no identificados\n\nUn depósito sin referencia se aplica a la factura abierta cuyo importe\ncoincida **exactamente** y cuyo cliente tenga saldo vencido. Si hay más de\nuna factura candidata con importes similares, **no se aplica**: se registra\nen `205-003 Anticipos de clientes por identificar` y se solicita el\ncomprobante al cliente.",
+              "7.7": "## 7.7 Evidencia requerida por el auditor\n\nToda conciliación debe conservar: (a) estado de cuenta original, (b) auxiliar\ncontable del periodo, (c) acta de conciliación firmada, (d) soporte de cada\npartida en conciliación y (e) **bitácora de quién autorizó cada ajuste y\ncuándo**. Cuando intervenga una herramienta automatizada, la bitácora debe\nidentificar además la versión de la herramienta y conservar su propuesta\noriginal, incluso si fue rechazada."
+            }
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "Ahora identifico el depósito sin referencia y encolo los asientos permitidos."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_cartera",
+          "args": {
+            "importe": 93600.0,
+            "tolerancia_pesos": 500
+          },
+          "resultado": {
+            "buscado": 93600.0,
+            "banda_de_busqueda": 936.0,
+            "candidatas": [
+              {
+                "folio": "FAC-2288",
+                "cliente": "Grupo Ferretero del Bajío",
+                "saldo": 93600.0,
+                "vencimiento": "2026-09-27",
+                "estatus": "VENCIDA",
+                "diferencia": 0.0,
+                "coincidencia_exacta": true
+              },
+              {
+                "folio": "FAC-2329",
+                "cliente": "Grupo Logístico Altamira",
+                "saldo": 93615.0,
+                "vencimiento": "2026-10-26",
+                "estatus": "vigente",
+                "diferencia": 15.0,
+                "coincidencia_exacta": false
+              }
+            ],
+            "coincidencias_exactas": 1,
+            "total_facturas_abiertas": 6,
+            "advertencia": "Hay más de una factura con importe similar: la política 7.6 impide aplicar el depósito a alguna de ellas."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Comisiones bancarias e IVA septiembre 2026 (B0106 manejo de cuenta, B0107 SPEI, B0111 IVA)",
+            "categoria": "comision_bancaria",
+            "renglones": [
+              {
+                "cuenta": "705-001 Comisiones bancarias",
+                "cargo": 2340.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "118-002 IVA acreditable pagado",
+                "cargo": 374.4,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001 Bancos BBVA",
+                "cargo": 0,
+                "abono": 2714.4
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 2714.4,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Intereses ganados inversión e ISR retenido septiembre 2026 (B0109, B0110)",
+            "categoria": "rendimiento_financiero",
+            "renglones": [
+              {
+                "cuenta": "102-001 Bancos BBVA",
+                "cargo": 7518.25,
+                "abono": 0
+              },
+              {
+                "cuenta": "113-004 ISR retenido por acreditar",
+                "cargo": 1223.9,
+                "abono": 0
+              },
+              {
+                "cuenta": "703-001 Productos financieros",
+                "cargo": 0,
+                "abono": 8742.15
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 8742.15,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Depósito en efectivo sin referencia 14/09 (B0043) por $93,600.00: dos facturas con importe similar, no se aplica a cartera conforme política 7.6",
+            "categoria": "cobro_no_identificado",
+            "renglones": [
+              {
+                "cuenta": "102-001 Bancos BBVA",
+                "cargo": 93600.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "205-003 Anticipos de clientes por identificar",
+                "cargo": 0,
+                "abono": 93600.0
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 93600.0,
+            "autoriza": "Contralor",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contralor (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Corrección error de captura póliza EGR-0109 pago Aceros Monclova: banco $48,590.00 vs libros $45,890.00, transposición de dígitos por $2,700.00",
+            "categoria": "error_de_captura",
+            "renglones": [
+              {
+                "cuenta": "201-001 Proveedores nacionales",
+                "cargo": 2700.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001 Bancos BBVA",
+                "cargo": 0,
+                "abono": 2700.0
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 2700.0,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026\nDirigida al Contralor\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 214 conciliados (94.69%) en 0.5 milisegundos. Niveles de cruce: 152 por importe y fecha exactos, 56 por importe exacto con desfase de hasta 3 días hábiles, 4 por agrupación 1:3 y 2 por diferencia bajo el umbral de materialidad. Quedaron 12 partidas en excepción por $565,960.45.\n\n**2. Partidas resueltas**\nComisión por manejo de cuenta (B0106, $1,450.00), comisión SPEI de 87 operaciones (B0107, $890.00) e IVA de comisiones (B0111, $374.40): asiento en borrador contra 705-001 y 118-002.\nIntereses ganados de inversión (B0109, $8,742.15) e ISR retenido (B0110, $1,223.90): asiento en borrador contra 703-001 y 113-004.\nPago a Aceros Monclova (B0077 $48,590.00 contra L0074 $45,890.00): diferencia de $2,700.00, múltiplo de nueve, transposición de dígitos al capturar la póliza EGR-0109. Asiento de corrección en borrador.\nDepósito en efectivo del 14/09 (B0043, $93,600.00): hay coincidencia exacta con FAC-2288 de Grupo Ferretero del Bajío, vencida, pero también FAC-2329 con saldo de $93,615.00. Al existir más de una candidata similar, la política 7.6 impide aplicarlo a cartera: se registra en 205-003 Anticipos de clientes por identificar y se debe pedir el comprobante al cliente.\nCheque 10847, anticipo de obra a Mantenimiento Industrial Torres (L0103, $67,800.00, 29/09): cheque en tránsito, partida en conciliación sin registro contable. Se vigila el plazo de 90 días.\nTraspaso a cuenta de inversión 7781 (B0116, $250,000.00, 30/09): movimiento propio entre cuentas de la empresa sin póliza al corte. Partida de corte, se verifica en la conciliación de octubre.\n\n**3. Asientos en borrador pendientes de autorización**\nComisiones bancarias e IVA: $2,714.40 — autoriza Contador General.\nIntereses ganados e ISR retenido: $8,742.15 — autoriza Contador General.\nCorrección de captura EGR-0109: $2,700.00 — autoriza Contador General.\nDepósito no identificado a anticipos por identificar: $93,600.00 — autoriza Contralor.\nNinguno afecta la contabilidad hasta su autorización expresa.\n\n**4. Partidas que requieren decisión humana**\nCargo por servicio de administración empresarial (B0060, $12,500.00, 18/09): existe un cargo idéntico el mismo día (B0059). Posible duplicado. No se registra ajuste; requiere aclaración ante BBVA y su instrucción para reclamarlo.\nCargo no reconocido ref. 88213 (B0066, $34,900.00, 19/09): no se vincula a ninguna operación propia. La política 7.5 prohíbe regularizarlo antes de agotar la aclaración bancaria. Debe escalarse el mismo día y presentarse objeción; el plazo legal es de 90 días naturales y vence a mediados de diciembre de 2026.\nDepósito de $93,600.00: usted decide si se autoriza el registro en anticipos por identificar o si se aplica a FAC-2288 una vez que el cliente envíe el comprobante.\nTraspaso de $250,000.00: confirmar con Tesorería la póliza de octubre.\n\n**5. Efecto en el saldo**\nSi se autorizan los cuatro asientos, el saldo de 102-001 Bancos BBVA aumenta $96,127.85: $93,600.00 por el depósito no identificado más $7,518.25 netos de intereses, menos $2,714.40 de comisiones e IVA y $2,700.00 de la corrección de captura. Resultados del periodo: $2,340.00 de gasto por comisiones y $8,742.15 de productos financieros. Quedan fuera del saldo ajustado $67,800.00 del cheque en tránsito, $250,000.00 del traspaso y $47,400.00 de los dos cargos en aclaración, que se mantienen como partidas abiertas. La regularización por materialidad del periodo no supera los $25,000.00 del límite acumulado."
+        }
+      ],
+      "acta": "Voy a ejecutar la conciliación con la tolerancia de materialidad de la política y, en paralelo, leer las secciones del manual que previsiblemente apliquen.\n\nAhora identifico el depósito sin referencia y encolo los asientos permitidos.\n\n**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026\nDirigida al Contralor\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 214 conciliados (94.69%) en 0.5 milisegundos. Niveles de cruce: 152 por importe y fecha exactos, 56 por importe exacto con desfase de hasta 3 días hábiles, 4 por agrupación 1:3 y 2 por diferencia bajo el umbral de materialidad. Quedaron 12 partidas en excepción por $565,960.45.\n\n**2. Partidas resueltas**\nComisión por manejo de cuenta (B0106, $1,450.00), comisión SPEI de 87 operaciones (B0107, $890.00) e IVA de comisiones (B0111, $374.40): asiento en borrador contra 705-001 y 118-002.\nIntereses ganados de inversión (B0109, $8,742.15) e ISR retenido (B0110, $1,223.90): asiento en borrador contra 703-001 y 113-004.\nPago a Aceros Monclova (B0077 $48,590.00 contra L0074 $45,890.00): diferencia de $2,700.00, múltiplo de nueve, transposición de dígitos al capturar la póliza EGR-0109. Asiento de corrección en borrador.\nDepósito en efectivo del 14/09 (B0043, $93,600.00): hay coincidencia exacta con FAC-2288 de Grupo Ferretero del Bajío, vencida, pero también FAC-2329 con saldo de $93,615.00. Al existir más de una candidata similar, la política 7.6 impide aplicarlo a cartera: se registra en 205-003 Anticipos de clientes por identificar y se debe pedir el comprobante al cliente.\nCheque 10847, anticipo de obra a Mantenimiento Industrial Torres (L0103, $67,800.00, 29/09): cheque en tránsito, partida en conciliación sin registro contable. Se vigila el plazo de 90 días.\nTraspaso a cuenta de inversión 7781 (B0116, $250,000.00, 30/09): movimiento propio entre cuentas de la empresa sin póliza al corte. Partida de corte, se verifica en la conciliación de octubre.\n\n**3. Asientos en borrador pendientes de autorización**\nComisiones bancarias e IVA: $2,714.40 — autoriza Contador General.\nIntereses ganados e ISR retenido: $8,742.15 — autoriza Contador General.\nCorrección de captura EGR-0109: $2,700.00 — autoriza Contador General.\nDepósito no identificado a anticipos por identificar: $93,600.00 — autoriza Contralor.\nNinguno afecta la contabilidad hasta su autorización expresa.\n\n**4. Partidas que requieren decisión humana**\nCargo por servicio de administración empresarial (B0060, $12,500.00, 18/09): existe un cargo idéntico el mismo día (B0059). Posible duplicado. No se registra ajuste; requiere aclaración ante BBVA y su instrucción para reclamarlo.\nCargo no reconocido ref. 88213 (B0066, $34,900.00, 19/09): no se vincula a ninguna operación propia. La política 7.5 prohíbe regularizarlo antes de agotar la aclaración bancaria. Debe escalarse el mismo día y presentarse objeción; el plazo legal es de 90 días naturales y vence a mediados de diciembre de 2026.\nDepósito de $93,600.00: usted decide si se autoriza el registro en anticipos por identificar o si se aplica a FAC-2288 una vez que el cliente envíe el comprobante.\nTraspaso de $250,000.00: confirmar con Tesorería la póliza de octubre.\n\n**5. Efecto en el saldo**\nSi se autorizan los cuatro asientos, el saldo de 102-001 Bancos BBVA aumenta $96,127.85: $93,600.00 por el depósito no identificado más $7,518.25 netos de intereses, menos $2,714.40 de comisiones e IVA y $2,700.00 de la corrección de captura. Resultados del periodo: $2,340.00 de gasto por comisiones y $8,742.15 de productos financieros. Quedan fuera del saldo ajustado $67,800.00 del cheque en tránsito, $250,000.00 del traspaso y $47,400.00 de los dos cargos en aclaración, que se mantienen como partidas abiertas. La regularización por materialidad del periodo no supera los $25,000.00 del límite acumulado.",
+      "tokens_entrada": 23631,
+      "tokens_salida": 3395,
+      "segundos": 54.18,
+      "grabado": "2026-08-08 23:29"
+    },
+    "Sólo lo que necesita mi firma": {
+      "modelo": "claude-opus-5",
+      "esfuerzo": "low",
+      "instruccion": "Concilia la cuenta y devuélveme únicamente las partidas que requieren autorización o decisión humana, con el importe y el motivo. Lo que puedas dejar resuelto conforme a política, resuélvelo sin consultarme.",
+      "pasos": [
+        {
+          "tipo": "texto",
+          "texto": "Ejecuto la conciliación y en paralelo abro el manual."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "ejecutar_conciliacion",
+          "args": {
+            "tolerancia_pesos": 500
+          },
+          "resultado": {
+            "movimientos_totales": 226,
+            "conciliados": 214,
+            "tasa_automatica": 0.9469,
+            "milisegundos": 2.9,
+            "monto_en_excepcion": 565960.45,
+            "niveles_de_cruce": {
+              "N1 · Importe y fecha exactos": 152,
+              "N2 · Importe exacto, desfase ≤3 días hábiles": 56,
+              "N3 · Agrupación 1:3": 4,
+              "N4 · Diferencia bajo umbral de materialidad": 2
+            },
+            "partidas_sin_conciliar": [
+              {
+                "id": "B0043",
+                "origen": "banco",
+                "fecha": "2026-09-14",
+                "monto": 93600.0,
+                "descripcion": "DEPOSITO EFECTIVO SUCURSAL 0471",
+                "referencia": "DEP 0471",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0060",
+                "origen": "banco",
+                "fecha": "2026-09-18",
+                "monto": -12500.0,
+                "descripcion": "CARGO SERVICIO ADMON EMPRESARIAL",
+                "referencia": "CARGO SERV",
+                "tercero": "",
+                "señales": [
+                  "Existe otro movimiento idéntico el mismo día (B0059): posible duplicado."
+                ]
+              },
+              {
+                "id": "B0066",
+                "origen": "banco",
+                "fecha": "2026-09-19",
+                "monto": -34900.0,
+                "descripcion": "CARGO NO RECONOCIDO REF 88213",
+                "referencia": "REF 88213",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0077",
+                "origen": "banco",
+                "fecha": "2026-09-22",
+                "monto": -48590.0,
+                "descripcion": "SPEI ENVIADO ACEROS MONCLOVA",
+                "referencia": "SPEI 751904",
+                "tercero": "",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (L0074, $-45,890.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "L0074",
+                "origen": "libros",
+                "fecha": "2026-09-22",
+                "monto": -45890.0,
+                "descripcion": "Pago parcial OC-8841",
+                "referencia": "EGR-0109",
+                "tercero": "Aceros Monclova",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (B0077, $-48,590.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "L0103",
+                "origen": "libros",
+                "fecha": "2026-09-29",
+                "monto": -67800.0,
+                "descripcion": "Cheque 10847 - anticipo obra",
+                "referencia": "EGR-0107",
+                "tercero": "Mantenimiento Industrial Torres",
+                "señales": []
+              },
+              {
+                "id": "B0116",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -250000.0,
+                "descripcion": "TRASPASO A CUENTA INVERSION 7781",
+                "referencia": "TRASP INV",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0109",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": 8742.15,
+                "descripcion": "INTERESES GANADOS INVERSION",
+                "referencia": "INT GAN",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0106",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1450.0,
+                "descripcion": "COMISION MANEJO DE CUENTA",
+                "referencia": "COM 0930",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0110",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1223.9,
+                "descripcion": "ISR RETENIDO INTERESES",
+                "referencia": "ISR INT",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0107",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -890.0,
+                "descripcion": "COMISION SPEI ENVIADOS (87 OPS)",
+                "referencia": "COM SPEI",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0111",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -374.4,
+                "descripcion": "IVA COMISIONES",
+                "referencia": "IVA COM",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_politica",
+          "args": {
+            "secciones": [
+              "7.1",
+              "7.2",
+              "7.3",
+              "7.4",
+              "7.5",
+              "7.6",
+              "7.7"
+            ]
+          },
+          "resultado": {
+            "secciones": {
+              "7.1": "## 7.1 Umbral de materialidad\n\n- **Materialidad de partida individual:** $500.00 MXN.\n  Las diferencias iguales o menores a este importe pueden regularizarse\n  directamente contra `705-002 Otros gastos financieros` sin autorización\n  adicional, siempre que se documente la causa.\n- **Materialidad acumulada del periodo:** $25,000.00 MXN.\n  Si la suma de partidas regularizadas por materialidad supera este importe,\n  la conciliación completa debe revisarse con el Contralor antes del cierre.",
+              "7.2": "## 7.2 Facultades de autorización de asientos de ajuste\n\n| Importe del asiento | Autoriza |\n|---|---|\n| Hasta $50,000.00 | Contador General |\n| $50,000.01 a $250,000.00 | Contralor |\n| Más de $250,000.00 | Dirección de Finanzas |\n\nNingún asiento de ajuste derivado de una conciliación puede registrarse en\nfirme sin la autorización que corresponda a su importe. Los asientos\npropuestos por herramientas automatizadas se registran **siempre en estatus\nde borrador** y requieren autorización explícita de una persona facultada.",
+              "7.3": "## 7.3 Cuentas de aplicación más frecuentes\n\n| Concepto | Cuenta |\n|---|---|\n| Comisiones bancarias | `705-001 Comisiones bancarias` |\n| IVA acreditable de comisiones | `118-002 IVA acreditable pagado` |\n| Intereses ganados | `703-001 Productos financieros` |\n| ISR retenido sobre intereses | `113-004 ISR retenido por acreditar` |\n| Diferencias cambiarias | `705-003 Pérdida cambiaria` / `703-002 Utilidad cambiaria` |\n| Otros gastos financieros no identificados | `705-002 Otros gastos financieros` |\n| Bancos — cuenta BBVA 0198 4471 92 | `102-001 Bancos BBVA` |\n| Clientes | `105-001 Clientes nacionales` |",
+              "7.4": "## 7.4 Partidas en conciliación (no generan asiento)\n\nSe dejan como partida en conciliación, sin registro contable, hasta que se\nresuelvan por sí mismas:\n\n- **Cheques en tránsito:** expedidos y registrados en libros, aún no cobrados\n  en el banco. Si superan **90 días** sin cobrarse, se cancelan y se reintegra\n  el pasivo.\n- **Depósitos en tránsito:** registrados en libros, aún no acreditados por el\n  banco al corte.\n- **Partidas de corte:** movimientos del banco cuya póliza corresponde al\n  periodo siguiente. Se documentan y se verifican en la conciliación del mes\n  siguiente.",
+              "7.5": "## 7.5 Movimientos no reconocidos\n\nCualquier cargo o abono del banco que no pueda vincularse a una operación\npropia **debe escalarse el mismo día** al Contralor y levantarse aclaración\nante la institución bancaria. **Está prohibido** regularizar contablemente un\nmovimiento no reconocido, cualquiera que sea su importe, antes de agotar la\naclaración bancaria. El plazo legal para objetar cargos ante la institución\nes de **90 días naturales**.",
+              "7.6": "## 7.6 Cobros no identificados\n\nUn depósito sin referencia se aplica a la factura abierta cuyo importe\ncoincida **exactamente** y cuyo cliente tenga saldo vencido. Si hay más de\nuna factura candidata con importes similares, **no se aplica**: se registra\nen `205-003 Anticipos de clientes por identificar` y se solicita el\ncomprobante al cliente.",
+              "7.7": "## 7.7 Evidencia requerida por el auditor\n\nToda conciliación debe conservar: (a) estado de cuenta original, (b) auxiliar\ncontable del periodo, (c) acta de conciliación firmada, (d) soporte de cada\npartida en conciliación y (e) **bitácora de quién autorizó cada ajuste y\ncuándo**. Cuando intervenga una herramienta automatizada, la bitácora debe\nidentificar además la versión de la herramienta y conservar su propuesta\noriginal, incluso si fue rechazada."
+            }
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "Consulto la cartera para el depósito sin referencia y encolo los asientos permitidos."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_cartera",
+          "args": {
+            "importe": 93600,
+            "tolerancia_pesos": 500
+          },
+          "resultado": {
+            "buscado": 93600.0,
+            "banda_de_busqueda": 936.0,
+            "candidatas": [
+              {
+                "folio": "FAC-2288",
+                "cliente": "Grupo Ferretero del Bajío",
+                "saldo": 93600.0,
+                "vencimiento": "2026-09-27",
+                "estatus": "VENCIDA",
+                "diferencia": 0.0,
+                "coincidencia_exacta": true
+              },
+              {
+                "folio": "FAC-2329",
+                "cliente": "Grupo Logístico Altamira",
+                "saldo": 93615.0,
+                "vencimiento": "2026-10-26",
+                "estatus": "vigente",
+                "diferencia": 15.0,
+                "coincidencia_exacta": false
+              }
+            ],
+            "coincidencias_exactas": 1,
+            "total_facturas_abiertas": 6,
+            "advertencia": "Hay más de una factura con importe similar: la política 7.6 impide aplicar el depósito a alguna de ellas."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Comisión manejo de cuenta septiembre 2026 (B0106)",
+            "categoria": "comision_bancaria",
+            "renglones": [
+              {
+                "cuenta": "705-001",
+                "cargo": 1450,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 1450
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 1450.0,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Comisión SPEI enviados 87 operaciones (B0107) e IVA de comisiones (B0111)",
+            "categoria": "comision_bancaria",
+            "renglones": [
+              {
+                "cuenta": "705-001",
+                "cargo": 890,
+                "abono": 0
+              },
+              {
+                "cuenta": "118-002",
+                "cargo": 374.4,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 1264.4
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 1264.4,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Intereses ganados inversión e ISR retenido septiembre 2026 (B0109, B0110)",
+            "categoria": "rendimiento_financiero",
+            "renglones": [
+              {
+                "cuenta": "102-001",
+                "cargo": 7518.25,
+                "abono": 0
+              },
+              {
+                "cuenta": "113-004",
+                "cargo": 1223.9,
+                "abono": 0
+              },
+              {
+                "cuenta": "703-001",
+                "cargo": 0,
+                "abono": 8742.15
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 8742.15,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Corrección por transposición de dígitos en pago parcial OC-8841 Aceros Monclova: banco $48,590.00 vs libros $45,890.00 (B0077/L0074)",
+            "categoria": "error_de_captura",
+            "renglones": [
+              {
+                "cuenta": "705-002",
+                "cargo": 2700,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 2700
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 2700.0,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Depósito en efectivo sucursal 0471 sin referencia, con dos facturas candidatas de importe similar (B0043)",
+            "categoria": "cobro_no_identificado",
+            "renglones": [
+              {
+                "cuenta": "102-001",
+                "cargo": 93600,
+                "abono": 0
+              },
+              {
+                "cuenta": "205-003",
+                "cargo": 0,
+                "abono": 93600
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 93600.0,
+            "autoriza": "Contralor",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contralor (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026 — Dirigida al Contralor\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 214 conciliados (94.69%) en 2.9 milisegundos. Doce partidas en excepción por $565,960.45. Niveles de cruce: 152 en N1, 56 en N2, 4 en N3 (agrupación 1:3) y 2 en N4 (diferencia bajo materialidad de $500).\n\n**2. Partidas resueltas**\nB0106, comisión por manejo de cuenta $1,450.00: asiento a comisiones bancarias.\nB0107 y B0111, comisión SPEI $890.00 e IVA $374.40: asiento a comisiones bancarias e IVA acreditable.\nB0109 y B0110, intereses ganados $8,742.15 con ISR retenido $1,223.90: asiento a productos financieros e ISR por acreditar.\nB0077 contra L0074, pago a Aceros Monclova: transposición de dígitos, el banco cargó $48,590.00 y libros registró $45,890.00. Asiento de corrección por $2,700.00.\nB0043, depósito en efectivo de $93,600.00 sin referencia: hay coincidencia exacta con FAC-2288 (Grupo Ferretero del Bajío, vencida) pero también FAC-2329 por $93,615.00. Por la política 7.6 no se aplicó a ninguna factura; se llevó a anticipos de clientes por identificar y debe pedirse el comprobante al cliente.\nB0116, traspaso a cuenta de inversión 7781 por $250,000.00: movimiento propio entre cuentas, pendiente de póliza de traspaso; queda como partida de corte a verificar en octubre.\nL0103, cheque 10847 por $67,800.00 a Mantenimiento Industrial Torres: cheque en tránsito, no cobrado al corte. Sin asiento conforme a 7.4; vigilar el plazo de 90 días.\n\n**3. Asientos en borrador pendientes de autorización**\n$1,450.00 comisión manejo de cuenta — Contador General.\n$1,264.40 comisión SPEI más IVA — Contador General.\n$8,742.15 intereses ganados y ISR retenido — Contador General.\n$2,700.00 corrección por transposición de dígitos — Contador General.\n$93,600.00 depósito no identificado a anticipos por identificar — Contralor.\n\n**4. Partidas que requieren decisión humana**\nB0060, cargo por servicio de administración empresarial de $12,500.00: existe un cargo idéntico el mismo día (B0059), posible duplicado. No se registró ajuste; requiere aclaración ante BBVA y confirmación del Contralor.\nB0066, cargo no reconocido referencia 88213 por $34,900.00: prohibido regularizarlo antes de agotar la aclaración bancaria (política 7.5). Debe escalarse el mismo día al Contralor y presentar objeción ante el banco dentro de los 90 días naturales.\nB0043, $93,600.00: la aplicación definitiva a FAC-2288 depende del comprobante del cliente. Lo decide el Contralor con el área de cobranza.\nB0116, $250,000.00: confirmar con Tesorería la póliza del traspaso.\nL0103, $67,800.00: confirmar con Tesorería que el cheque sigue vigente.\n\n**5. Efecto en el saldo**\nLos asientos en borrador, si se autorizan, ajustan el saldo contable de bancos en $3,904.25 a favor (más $8,742.15 de intereses, menos $1,450.00, $1,264.40 y $2,700.00), más el reconocimiento del depósito de $93,600.00 como pasivo por identificar. Quedan fuera del saldo los $47,400.00 de los dos cargos en aclaración y las dos partidas en tránsito por $317,800.00. La conciliación no puede cerrarse en firme hasta resolver B0060 y B0066."
+        }
+      ],
+      "acta": "Ejecuto la conciliación y en paralelo abro el manual.\n\nConsulto la cartera para el depósito sin referencia y encolo los asientos permitidos.\n\n**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026 — Dirigida al Contralor\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 214 conciliados (94.69%) en 2.9 milisegundos. Doce partidas en excepción por $565,960.45. Niveles de cruce: 152 en N1, 56 en N2, 4 en N3 (agrupación 1:3) y 2 en N4 (diferencia bajo materialidad de $500).\n\n**2. Partidas resueltas**\nB0106, comisión por manejo de cuenta $1,450.00: asiento a comisiones bancarias.\nB0107 y B0111, comisión SPEI $890.00 e IVA $374.40: asiento a comisiones bancarias e IVA acreditable.\nB0109 y B0110, intereses ganados $8,742.15 con ISR retenido $1,223.90: asiento a productos financieros e ISR por acreditar.\nB0077 contra L0074, pago a Aceros Monclova: transposición de dígitos, el banco cargó $48,590.00 y libros registró $45,890.00. Asiento de corrección por $2,700.00.\nB0043, depósito en efectivo de $93,600.00 sin referencia: hay coincidencia exacta con FAC-2288 (Grupo Ferretero del Bajío, vencida) pero también FAC-2329 por $93,615.00. Por la política 7.6 no se aplicó a ninguna factura; se llevó a anticipos de clientes por identificar y debe pedirse el comprobante al cliente.\nB0116, traspaso a cuenta de inversión 7781 por $250,000.00: movimiento propio entre cuentas, pendiente de póliza de traspaso; queda como partida de corte a verificar en octubre.\nL0103, cheque 10847 por $67,800.00 a Mantenimiento Industrial Torres: cheque en tránsito, no cobrado al corte. Sin asiento conforme a 7.4; vigilar el plazo de 90 días.\n\n**3. Asientos en borrador pendientes de autorización**\n$1,450.00 comisión manejo de cuenta — Contador General.\n$1,264.40 comisión SPEI más IVA — Contador General.\n$8,742.15 intereses ganados y ISR retenido — Contador General.\n$2,700.00 corrección por transposición de dígitos — Contador General.\n$93,600.00 depósito no identificado a anticipos por identificar — Contralor.\n\n**4. Partidas que requieren decisión humana**\nB0060, cargo por servicio de administración empresarial de $12,500.00: existe un cargo idéntico el mismo día (B0059), posible duplicado. No se registró ajuste; requiere aclaración ante BBVA y confirmación del Contralor.\nB0066, cargo no reconocido referencia 88213 por $34,900.00: prohibido regularizarlo antes de agotar la aclaración bancaria (política 7.5). Debe escalarse el mismo día al Contralor y presentar objeción ante el banco dentro de los 90 días naturales.\nB0043, $93,600.00: la aplicación definitiva a FAC-2288 depende del comprobante del cliente. Lo decide el Contralor con el área de cobranza.\nB0116, $250,000.00: confirmar con Tesorería la póliza del traspaso.\nL0103, $67,800.00: confirmar con Tesorería que el cheque sigue vigente.\n\n**5. Efecto en el saldo**\nLos asientos en borrador, si se autorizan, ajustan el saldo contable de bancos en $3,904.25 a favor (más $8,742.15 de intereses, menos $1,450.00, $1,264.40 y $2,700.00), más el reconocimiento del depósito de $93,600.00 como pasivo por identificar. Quedan fuera del saldo los $47,400.00 de los dos cargos en aclaración y las dos partidas en tránsito por $317,800.00. La conciliación no puede cerrarse en firme hasta resolver B0060 y B0066.",
+      "tokens_entrada": 23696,
+      "tokens_salida": 2897,
+      "segundos": 43.42,
+      "grabado": "2026-08-08 23:30"
+    },
+    "Revisión de riesgos": {
+      "modelo": "claude-opus-5",
+      "esfuerzo": "low",
+      "instruccion": "Concilia la cuenta y señálame cualquier partida que pudiera indicar un cobro indebido, un duplicado o un movimiento ajeno a la operación. Ordénalas por riesgo, no por importe.",
+      "pasos": [
+        {
+          "tipo": "texto",
+          "texto": "Voy a ejecutar la conciliación y, en paralelo, leer las secciones del manual que previsiblemente aplican."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "ejecutar_conciliacion",
+          "args": {
+            "tolerancia_pesos": 0
+          },
+          "resultado": {
+            "movimientos_totales": 226,
+            "conciliados": 212,
+            "tasa_automatica": 0.9381,
+            "milisegundos": 0.4,
+            "monto_en_excepcion": 934555.95,
+            "niveles_de_cruce": {
+              "N1 · Importe y fecha exactos": 152,
+              "N2 · Importe exacto, desfase ≤3 días hábiles": 56,
+              "N3 · Agrupación 1:3": 4
+            },
+            "partidas_sin_conciliar": [
+              {
+                "id": "B0043",
+                "origen": "banco",
+                "fecha": "2026-09-14",
+                "monto": 93600.0,
+                "descripcion": "DEPOSITO EFECTIVO SUCURSAL 0471",
+                "referencia": "DEP 0471",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0060",
+                "origen": "banco",
+                "fecha": "2026-09-18",
+                "monto": -12500.0,
+                "descripcion": "CARGO SERVICIO ADMON EMPRESARIAL",
+                "referencia": "CARGO SERV",
+                "tercero": "",
+                "señales": [
+                  "Existe otro movimiento idéntico el mismo día (B0059): posible duplicado."
+                ]
+              },
+              {
+                "id": "B0066",
+                "origen": "banco",
+                "fecha": "2026-09-19",
+                "monto": -34900.0,
+                "descripcion": "CARGO NO RECONOCIDO REF 88213",
+                "referencia": "REF 88213",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0077",
+                "origen": "banco",
+                "fecha": "2026-09-22",
+                "monto": -48590.0,
+                "descripcion": "SPEI ENVIADO ACEROS MONCLOVA",
+                "referencia": "SPEI 751904",
+                "tercero": "",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (L0074, $-45,890.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "L0074",
+                "origen": "libros",
+                "fecha": "2026-09-22",
+                "monto": -45890.0,
+                "descripcion": "Pago parcial OC-8841",
+                "referencia": "EGR-0109",
+                "tercero": "Aceros Monclova",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (B0077, $-48,590.00, 22/09): diferencia de $2,700.00, múltiplo de 9 — firma típica de transposición de dígitos al capturar."
+                ]
+              },
+              {
+                "id": "B0094",
+                "origen": "banco",
+                "fecha": "2026-09-25",
+                "monto": -184320.5,
+                "descripcion": "PAGO INTERNACIONAL USD 9,600.00",
+                "referencia": "SPEI INT 4402",
+                "tercero": "",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (L0093, $-184,275.00, 25/09): diferencia de $45.50."
+                ]
+              },
+              {
+                "id": "L0093",
+                "origen": "libros",
+                "fecha": "2026-09-25",
+                "monto": -184275.0,
+                "descripcion": "Pago USD 9,600 OC-8902 (TC 19.1953)",
+                "referencia": "EGR-0110",
+                "tercero": "Global Bearings Corp",
+                "señales": [
+                  "Partida casi cuadrada en el otro sistema (B0094, $-184,320.50, 25/09): diferencia de $45.50."
+                ]
+              },
+              {
+                "id": "L0103",
+                "origen": "libros",
+                "fecha": "2026-09-29",
+                "monto": -67800.0,
+                "descripcion": "Cheque 10847 - anticipo obra",
+                "referencia": "EGR-0107",
+                "tercero": "Mantenimiento Industrial Torres",
+                "señales": []
+              },
+              {
+                "id": "B0116",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -250000.0,
+                "descripcion": "TRASPASO A CUENTA INVERSION 7781",
+                "referencia": "TRASP INV",
+                "tercero": "",
+                "señales": []
+              },
+              {
+                "id": "B0109",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": 8742.15,
+                "descripcion": "INTERESES GANADOS INVERSION",
+                "referencia": "INT GAN",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0106",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1450.0,
+                "descripcion": "COMISION MANEJO DE CUENTA",
+                "referencia": "COM 0930",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0110",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -1223.9,
+                "descripcion": "ISR RETENIDO INTERESES",
+                "referencia": "ISR INT",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de rendimientos o retención."
+                ]
+              },
+              {
+                "id": "B0107",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -890.0,
+                "descripcion": "COMISION SPEI ENVIADOS (87 OPS)",
+                "referencia": "COM SPEI",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              },
+              {
+                "id": "B0111",
+                "origen": "banco",
+                "fecha": "2026-09-30",
+                "monto": -374.4,
+                "descripcion": "IVA COMISIONES",
+                "referencia": "IVA COM",
+                "tercero": "",
+                "señales": [
+                  "El concepto contiene vocabulario de comisión bancaria."
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_politica",
+          "args": {
+            "secciones": [
+              "7.1",
+              "7.2",
+              "7.3",
+              "7.4",
+              "7.5",
+              "7.6",
+              "7.7"
+            ]
+          },
+          "resultado": {
+            "secciones": {
+              "7.1": "## 7.1 Umbral de materialidad\n\n- **Materialidad de partida individual:** $500.00 MXN.\n  Las diferencias iguales o menores a este importe pueden regularizarse\n  directamente contra `705-002 Otros gastos financieros` sin autorización\n  adicional, siempre que se documente la causa.\n- **Materialidad acumulada del periodo:** $25,000.00 MXN.\n  Si la suma de partidas regularizadas por materialidad supera este importe,\n  la conciliación completa debe revisarse con el Contralor antes del cierre.",
+              "7.2": "## 7.2 Facultades de autorización de asientos de ajuste\n\n| Importe del asiento | Autoriza |\n|---|---|\n| Hasta $50,000.00 | Contador General |\n| $50,000.01 a $250,000.00 | Contralor |\n| Más de $250,000.00 | Dirección de Finanzas |\n\nNingún asiento de ajuste derivado de una conciliación puede registrarse en\nfirme sin la autorización que corresponda a su importe. Los asientos\npropuestos por herramientas automatizadas se registran **siempre en estatus\nde borrador** y requieren autorización explícita de una persona facultada.",
+              "7.3": "## 7.3 Cuentas de aplicación más frecuentes\n\n| Concepto | Cuenta |\n|---|---|\n| Comisiones bancarias | `705-001 Comisiones bancarias` |\n| IVA acreditable de comisiones | `118-002 IVA acreditable pagado` |\n| Intereses ganados | `703-001 Productos financieros` |\n| ISR retenido sobre intereses | `113-004 ISR retenido por acreditar` |\n| Diferencias cambiarias | `705-003 Pérdida cambiaria` / `703-002 Utilidad cambiaria` |\n| Otros gastos financieros no identificados | `705-002 Otros gastos financieros` |\n| Bancos — cuenta BBVA 0198 4471 92 | `102-001 Bancos BBVA` |\n| Clientes | `105-001 Clientes nacionales` |",
+              "7.4": "## 7.4 Partidas en conciliación (no generan asiento)\n\nSe dejan como partida en conciliación, sin registro contable, hasta que se\nresuelvan por sí mismas:\n\n- **Cheques en tránsito:** expedidos y registrados en libros, aún no cobrados\n  en el banco. Si superan **90 días** sin cobrarse, se cancelan y se reintegra\n  el pasivo.\n- **Depósitos en tránsito:** registrados en libros, aún no acreditados por el\n  banco al corte.\n- **Partidas de corte:** movimientos del banco cuya póliza corresponde al\n  periodo siguiente. Se documentan y se verifican en la conciliación del mes\n  siguiente.",
+              "7.5": "## 7.5 Movimientos no reconocidos\n\nCualquier cargo o abono del banco que no pueda vincularse a una operación\npropia **debe escalarse el mismo día** al Contralor y levantarse aclaración\nante la institución bancaria. **Está prohibido** regularizar contablemente un\nmovimiento no reconocido, cualquiera que sea su importe, antes de agotar la\naclaración bancaria. El plazo legal para objetar cargos ante la institución\nes de **90 días naturales**.",
+              "7.6": "## 7.6 Cobros no identificados\n\nUn depósito sin referencia se aplica a la factura abierta cuyo importe\ncoincida **exactamente** y cuyo cliente tenga saldo vencido. Si hay más de\nuna factura candidata con importes similares, **no se aplica**: se registra\nen `205-003 Anticipos de clientes por identificar` y se solicita el\ncomprobante al cliente.",
+              "7.7": "## 7.7 Evidencia requerida por el auditor\n\nToda conciliación debe conservar: (a) estado de cuenta original, (b) auxiliar\ncontable del periodo, (c) acta de conciliación firmada, (d) soporte de cada\npartida en conciliación y (e) **bitácora de quién autorizó cada ajuste y\ncuándo**. Cuando intervenga una herramienta automatizada, la bitácora debe\nidentificar además la versión de la herramienta y conservar su propuesta\noriginal, incluso si fue rechazada."
+            }
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "Consulto la cartera para el depósito sin referencia."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "consultar_cartera",
+          "args": {
+            "importe": 93600.0,
+            "tolerancia_pesos": 50
+          },
+          "resultado": {
+            "buscado": 93600.0,
+            "banda_de_busqueda": 936.0,
+            "candidatas": [
+              {
+                "folio": "FAC-2288",
+                "cliente": "Grupo Ferretero del Bajío",
+                "saldo": 93600.0,
+                "vencimiento": "2026-09-27",
+                "estatus": "VENCIDA",
+                "diferencia": 0.0,
+                "coincidencia_exacta": true
+              },
+              {
+                "folio": "FAC-2329",
+                "cliente": "Grupo Logístico Altamira",
+                "saldo": 93615.0,
+                "vencimiento": "2026-10-26",
+                "estatus": "vigente",
+                "diferencia": 15.0,
+                "coincidencia_exacta": false
+              }
+            ],
+            "coincidencias_exactas": 1,
+            "total_facturas_abiertas": 6,
+            "advertencia": "Hay más de una factura con importe similar: la política 7.6 impide aplicar el depósito a alguna de ellas."
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "Encolo los asientos permitidos."
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Comisiones bancarias septiembre 2026 (manejo de cuenta B0106, SPEI B0107) e IVA acreditable B0111",
+            "categoria": "comision_bancaria",
+            "renglones": [
+              {
+                "cuenta": "705-001",
+                "cargo": 2340.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "118-002",
+                "cargo": 374.4,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 2714.4
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 2714.4,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Intereses ganados inversión B0109 e ISR retenido B0110",
+            "categoria": "rendimiento_financiero",
+            "renglones": [
+              {
+                "cuenta": "102-001",
+                "cargo": 7518.25,
+                "abono": 0
+              },
+              {
+                "cuenta": "113-004",
+                "cargo": 1223.9,
+                "abono": 0
+              },
+              {
+                "cuenta": "703-001",
+                "cargo": 0,
+                "abono": 8742.15
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 8742.15,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Diferencia cambiaria pago internacional USD 9,600 (B0094 vs L0093), $45.50 dentro de materialidad 7.1",
+            "categoria": "diferencia_cambiaria",
+            "renglones": [
+              {
+                "cuenta": "705-003",
+                "cargo": 45.5,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 45.5
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 45.5,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Depósito en efectivo B0043 sin referencia utilizable; dos facturas candidatas, no se aplica a cliente (política 7.6)",
+            "categoria": "cobro_no_identificado",
+            "renglones": [
+              {
+                "cuenta": "102-001",
+                "cargo": 93600.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "205-003",
+                "cargo": 0,
+                "abono": 93600.0
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 93600.0,
+            "autoriza": "Contralor",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contralor (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "herramienta",
+          "nombre": "registrar_asiento_borrador",
+          "args": {
+            "concepto": "Corrección de captura EGR-0109 Aceros Monclova: banco cargó $48,590.00 y libros registraron $45,890.00 (transposición de dígitos)",
+            "categoria": "error_de_captura",
+            "renglones": [
+              {
+                "cuenta": "705-002",
+                "cargo": 2700.0,
+                "abono": 0
+              },
+              {
+                "cuenta": "102-001",
+                "cargo": 0,
+                "abono": 2700.0
+              }
+            ]
+          },
+          "resultado": {
+            "estatus": "EN BORRADOR",
+            "importe": 2700.0,
+            "autoriza": "Contador General",
+            "nota": "Asiento encolado sin afectar la contabilidad. Requiere autorización de: Contador General (política 7.2). Queda registrado en bitácora quién lo propuso y cuándo."
+          }
+        },
+        {
+          "tipo": "texto",
+          "texto": "**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 212 conciliados (93.81%) en 0.4 milisegundos. Cruce con tolerancia cero: 152 por importe y fecha exactos, 56 con desfase de hasta 3 días hábiles y 4 por agrupación 1:3. Quedaron 14 partidas en excepción por $934,555.95.\n\n**2. Partidas resueltas**\nB0106, B0107 y B0111: comisiones de manejo de cuenta y de SPEI más IVA, no registradas en libros. Asiento propuesto.\nB0109 y B0110: intereses ganados de la inversión e ISR retenido. Asiento propuesto.\nB0094 vs L0093: pago de USD 9,600 a Global Bearings Corp con diferencia de $45.50 por tipo de cambio, dentro de la materialidad de $500 (política 7.1). Asiento propuesto a pérdida cambiaria.\nB0077 vs L0074: el banco cargó $48,590.00 y libros registraron $45,890.00 en el pago a Aceros Monclova. Diferencia de $2,700.00, múltiplo de 9, típica de transposición de dígitos. Asiento propuesto; debe confirmarse contra el comprobante SPEI 751904 antes de autorizar.\nB0043: depósito en efectivo de $93,600.00 sin referencia. Coincide exactamente con FAC-2288 de Grupo Ferretero del Bajío (vencida), pero existe una segunda candidata con importe similar, FAC-2329 de $93,615.00. La política 7.6 impide aplicarlo: se registra en anticipos por identificar y se solicita el comprobante al cliente.\nL0103: cheque 10847 por $67,800.00 a Mantenimiento Industrial Torres, expedido y no cobrado. Cheque en tránsito, sin registro contable (política 7.4). Vigila el plazo de 90 días.\nB0116: traspaso de $250,000.00 a la cuenta de inversión 7781 sin póliza en libros. Es movimiento propio entre cuentas de la empresa; queda pendiente el registro del traspaso por Tesorería, no es ajuste de conciliación.\n\n**3. Asientos en borrador pendientes de autorización**\nComisiones e IVA, $2,714.40 — Contador General.\nIntereses ganados e ISR retenido, $8,742.15 — Contador General.\nDiferencia cambiaria, $45.50 — Contador General.\nCorrección de captura Aceros Monclova, $2,700.00 — Contador General.\nCobro no identificado a anticipos por identificar, $93,600.00 — Contralor.\nNinguno afecta la contabilidad hasta su autorización expresa.\n\n**4. Partidas que requieren decisión humana, ordenadas por riesgo**\nPrimero, B0060: cargo por servicio de administración empresarial de $12,500.00 del 18/09 idéntico a B0059 del mismo día. Es un cobro duplicado. No se registra ajuste; se escala hoy mismo al Contralor y se levanta aclaración ante BBVA (política 7.5). Plazo legal para objetar: 90 días naturales, vence a mediados de diciembre.\nSegundo, B0066: cargo no reconocido por $34,900.00 con referencia 88213, sin contraparte ni operación propia identificable. Mismo tratamiento: escalamiento inmediato y aclaración bancaria. Está prohibido regularizarlo antes de agotar la aclaración.\nTercero, B0077/L0074: la diferencia de $2,700.00 se explica por transposición de dígitos, pero la hipótesis debe validarse contra el comprobante bancario; si el banco cobró más de lo instruido, deja de ser error de captura y pasa a aclaración.\nCuarto, B0043: depósito de $93,600.00 de origen no acreditado. Requiere el comprobante del cliente para aplicarlo; mientras no llegue, permanece en anticipos por identificar.\nQuinto, B0116: confirmar con Tesorería que el traspaso a la cuenta 7781 fue instruido por la empresa y registrar la póliza.\nSexto, L0103: confirmar con el proveedor la entrega y el estatus del cheque 10847.\n\n**5. Efecto en el saldo**\nLos asientos en borrador disminuyen el saldo contable de bancos en $2,714.40 por comisiones, $2,700.00 por la corrección de captura y $45.50 por diferencia cambiaria, y lo aumentan en $7,518.25 netos por intereses menos retención, además del reconocimiento de $93,600.00 de depósito contra anticipos de clientes por identificar. Efecto neto en resultados: cargo de $2,062.15. Las partidas regularizadas por materialidad suman $45.50, muy por debajo del límite acumulado de $25,000.00.\nLa conciliación no queda cerrada: $47,400.00 en dos cargos presuntamente indebidos (B0059/B0060 y B0066) siguen abiertos y dependen del resultado de la aclaración con BBVA."
+        }
+      ],
+      "acta": "Voy a ejecutar la conciliación y, en paralelo, leer las secciones del manual que previsiblemente aplican.\n\nConsulto la cartera para el depósito sin referencia.\n\nEncolo los asientos permitidos.\n\n**ACTA DE CONCILIACIÓN BANCARIA**\nCuenta BBVA México 0198 4471 92 — Periodo Septiembre 2026\n\n**1. Resultado del cruce automático**\n226 movimientos procesados, 212 conciliados (93.81%) en 0.4 milisegundos. Cruce con tolerancia cero: 152 por importe y fecha exactos, 56 con desfase de hasta 3 días hábiles y 4 por agrupación 1:3. Quedaron 14 partidas en excepción por $934,555.95.\n\n**2. Partidas resueltas**\nB0106, B0107 y B0111: comisiones de manejo de cuenta y de SPEI más IVA, no registradas en libros. Asiento propuesto.\nB0109 y B0110: intereses ganados de la inversión e ISR retenido. Asiento propuesto.\nB0094 vs L0093: pago de USD 9,600 a Global Bearings Corp con diferencia de $45.50 por tipo de cambio, dentro de la materialidad de $500 (política 7.1). Asiento propuesto a pérdida cambiaria.\nB0077 vs L0074: el banco cargó $48,590.00 y libros registraron $45,890.00 en el pago a Aceros Monclova. Diferencia de $2,700.00, múltiplo de 9, típica de transposición de dígitos. Asiento propuesto; debe confirmarse contra el comprobante SPEI 751904 antes de autorizar.\nB0043: depósito en efectivo de $93,600.00 sin referencia. Coincide exactamente con FAC-2288 de Grupo Ferretero del Bajío (vencida), pero existe una segunda candidata con importe similar, FAC-2329 de $93,615.00. La política 7.6 impide aplicarlo: se registra en anticipos por identificar y se solicita el comprobante al cliente.\nL0103: cheque 10847 por $67,800.00 a Mantenimiento Industrial Torres, expedido y no cobrado. Cheque en tránsito, sin registro contable (política 7.4). Vigila el plazo de 90 días.\nB0116: traspaso de $250,000.00 a la cuenta de inversión 7781 sin póliza en libros. Es movimiento propio entre cuentas de la empresa; queda pendiente el registro del traspaso por Tesorería, no es ajuste de conciliación.\n\n**3. Asientos en borrador pendientes de autorización**\nComisiones e IVA, $2,714.40 — Contador General.\nIntereses ganados e ISR retenido, $8,742.15 — Contador General.\nDiferencia cambiaria, $45.50 — Contador General.\nCorrección de captura Aceros Monclova, $2,700.00 — Contador General.\nCobro no identificado a anticipos por identificar, $93,600.00 — Contralor.\nNinguno afecta la contabilidad hasta su autorización expresa.\n\n**4. Partidas que requieren decisión humana, ordenadas por riesgo**\nPrimero, B0060: cargo por servicio de administración empresarial de $12,500.00 del 18/09 idéntico a B0059 del mismo día. Es un cobro duplicado. No se registra ajuste; se escala hoy mismo al Contralor y se levanta aclaración ante BBVA (política 7.5). Plazo legal para objetar: 90 días naturales, vence a mediados de diciembre.\nSegundo, B0066: cargo no reconocido por $34,900.00 con referencia 88213, sin contraparte ni operación propia identificable. Mismo tratamiento: escalamiento inmediato y aclaración bancaria. Está prohibido regularizarlo antes de agotar la aclaración.\nTercero, B0077/L0074: la diferencia de $2,700.00 se explica por transposición de dígitos, pero la hipótesis debe validarse contra el comprobante bancario; si el banco cobró más de lo instruido, deja de ser error de captura y pasa a aclaración.\nCuarto, B0043: depósito de $93,600.00 de origen no acreditado. Requiere el comprobante del cliente para aplicarlo; mientras no llegue, permanece en anticipos por identificar.\nQuinto, B0116: confirmar con Tesorería que el traspaso a la cuenta 7781 fue instruido por la empresa y registrar la póliza.\nSexto, L0103: confirmar con el proveedor la entrega y el estatus del cheque 10847.\n\n**5. Efecto en el saldo**\nLos asientos en borrador disminuyen el saldo contable de bancos en $2,714.40 por comisiones, $2,700.00 por la corrección de captura y $45.50 por diferencia cambiaria, y lo aumentan en $7,518.25 netos por intereses menos retención, además del reconocimiento de $93,600.00 de depósito contra anticipos de clientes por identificar. Efecto neto en resultados: cargo de $2,062.15. Las partidas regularizadas por materialidad suman $45.50, muy por debajo del límite acumulado de $25,000.00.\nLa conciliación no queda cerrada: $47,400.00 en dos cargos presuntamente indebidos (B0059/B0060 y B0066) siguen abiertos y dependen del resultado de la aclaración con BBVA.",
+      "tokens_entrada": 39749,
+      "tokens_salida": 3640,
+      "segundos": 63.51,
+      "grabado": "2026-08-08 23:31"
+    }
+  },
+  "grabado": "2026-08-08 23:31"
+}
