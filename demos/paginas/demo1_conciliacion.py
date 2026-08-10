@@ -31,11 +31,44 @@ st.caption(f"{EMPRESA} · {BANCO} {CUENTA} · {PERIODO}")
 
 
 # --------------------------------------------------------------------------
-@st.cache_data
+# Todo lo caro se calcula UNA vez y se comparte entre sesiones. El enlace de
+# esta app se reparte por QR a una sesión entera: si cada visitante recargara
+# los archivos y recalculara el cruce y las señales en cada interacción, el
+# gigabyte de recursos de Community Cloud se iría en repetir trabajo idéntico.
+# --------------------------------------------------------------------------
+@st.cache_data(show_spinner=False)
 def _datos():
-    banco = cargar_banco(ARCHIVO_BANCO)
-    libros = cargar_libros(ARCHIVO_LIBROS)
-    return banco, libros
+    return cargar_banco(ARCHIVO_BANCO), cargar_libros(ARCHIVO_LIBROS)
+
+
+@st.cache_data(show_spinner=False)
+def _crudos():
+    return pd.read_csv(ARCHIVO_BANCO), pd.read_csv(ARCHIVO_LIBROS)
+
+
+@st.cache_data(show_spinner=False)
+def _cruce(tolerancia_centavos: int):
+    """Cruce y señales para un umbral dado. La clave del caché es el umbral."""
+    banco, libros = _datos()
+    res = conciliar(banco, libros, tolerancia_centavos=tolerancia_centavos)
+    todos = banco + libros
+    tabla = pd.DataFrame([{
+        "ID": m.id,
+        "Sistema": "Banco" if m.origen == "banco" else "Libros",
+        "Fecha": m.fecha.strftime("%d/%m/%Y"),
+        "Importe": m.monto,
+        "Concepto": m.descripcion,
+        "Señales del motor": " ".join(pistas(m, todos)) or "—",
+    } for m in res.excepciones])
+    return res, todos, tabla
+
+
+@st.cache_data(show_spinner=False)
+def _formato(archivo: str) -> str | None:
+    ruta = DIR_FORMATOS / archivo
+    if not ruta.exists():
+        return None
+    return "\n".join(ruta.read_text(encoding="utf-8").splitlines()[:12])
 
 
 banco, libros = _datos()
@@ -48,8 +81,9 @@ c2.metric("Auxiliar contable", f"{len(libros)} partidas")
 
 with st.expander("Ver los archivos tal como salen de los sistemas"):
     t1, t2 = st.tabs(["Estado de cuenta (banco)", "Auxiliar contable (ERP)"])
-    t1.dataframe(pd.read_csv(ARCHIVO_BANCO), height=260, width="stretch")
-    t2.dataframe(pd.read_csv(ARCHIVO_LIBROS), height=260, width="stretch")
+    _cb, _cl = _crudos()
+    t1.dataframe(_cb, height=260, width="stretch")
+    t2.dataframe(_cl, height=260, width="stretch")
     st.caption(
         "Dos sistemas que no se hablan: el banco identifica con folio SPEI, la "
         "contabilidad con número de póliza. No hay una llave común — por eso "
@@ -68,10 +102,9 @@ with st.expander("⚠️  Y así llegan en realidad: cuatro bancos, cuatro forma
         _, archivo, lenguaje, dolor = next(f for f in FORMATOS_REALES
                                            if f[0] == etiqueta)
         with tab:
-            ruta = DIR_FORMATOS / archivo
-            if ruta.exists():
-                crudo = ruta.read_text(encoding="utf-8")
-                st.code("\n".join(crudo.splitlines()[:12]), language=lenguaje)
+            crudo = _formato(archivo)
+            if crudo is not None:
+                st.code(crudo, language=lenguaje)
                 texto.markdown(f"**Lo que duele:** {dolor}")
             else:
                 st.warning(f"Falta `{archivo}`. Corre "
@@ -106,8 +139,7 @@ tolerancia = st.slider(
          "porcentaje automático mejora... a costa de partidas que ya nadie mira.",
 )
 
-res = conciliar(banco, libros, tolerancia_centavos=tolerancia * 100)
-todos = banco + libros
+res, todos, df_exc = _cruce(tolerancia * 100)
 
 m1, m2, m3, m4 = st.columns(4)
 m1.metric("Conciliado automático", f"{res.tasa:.1%}",
@@ -144,14 +176,6 @@ if tolerancia > 0:
 # ============================== PASO 3 =====================================
 st.subheader(f"3 · Las {len(res.excepciones)} partidas que rompen la regla")
 
-df_exc = pd.DataFrame([{
-    "ID": m.id,
-    "Sistema": "Banco" if m.origen == "banco" else "Libros",
-    "Fecha": m.fecha.strftime("%d/%m/%Y"),
-    "Importe": m.monto,
-    "Concepto": m.descripcion,
-    "Señales del motor": " ".join(pistas(m, todos)) or "—",
-} for m in res.excepciones])
 st.dataframe(
     df_exc, hide_index=True, width="stretch",
     column_config={"Importe": st.column_config.NumberColumn(format="$ %.2f")},

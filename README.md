@@ -222,12 +222,66 @@ ANTHROPIC_API_KEY = "sk-ant-..."
 
 La key **nunca** va al repo: es público porque Pages sirve `docs/`.
 
+### Varias personas a la vez
+
+El enlace de la app se reparte por QR a una sesión entera, así que hay que
+diseñar para el momento en que cien personas lo abren al mismo tiempo. Dos
+riesgos, muy distintos entre sí:
+
+**El caro: la API.** Todas las visitas comparten **una sola API key**. Si cada
+asistente pudiera lanzar corridas en vivo, cada clic cobraría a esa key
+(~$2.20 MXN el análisis, ~$4 el agente) y decenas de llamadas simultáneas
+chocarían contra los límites de tasa — justo mientras el ponente demuestra en
+vivo. Es el riesgo serio, y no es de dinero: es de que la demo se caiga sola.
+
+**Mitigación:** la app **arranca en modo respaldo** para cualquier visitante.
+Reproduce corridas reales grabadas, se ve idéntico, cuesta cero y aguanta
+cualquier número de personas. El modo en vivo se abre sólo con la clave
+`CLAVE_MODO_VIVO` en la URL (`?vivo=LA_CLAVE`).
+
+**El de recursos.** Community Cloud da **1 GB compartido** por app, sin tope
+duro de usuarios: el límite práctico lo pone ese gigabyte. Por eso el cruce,
+las señales y la lectura de archivos están en `@st.cache_data`, que se comparte
+entre sesiones: el trabajo se hace una vez, no una por visitante. Y en modo
+respaldo no hay peticiones de 40 segundos ocupando el proceso.
+
+> **Recomendación para el día del evento: el ponente demuestra desde local**
+> (`streamlit run demos/app.py`), no desde la app pública. Así queda aislado por
+> completo del tráfico de la audiencia — si cien personas entran a la app
+> mientras él demuestra, a él no le afecta.
+
+### ⚠️ Después de cada push: **reiniciar la app**
+
+Streamlit Community Cloud detecta el push y vuelve a ejecutar el script, pero
+**no reinicia el proceso de Python**. Los módulos de `shared/` ya están en
+`sys.modules` desde el arranque: las páginas se recargan con el código nuevo y
+los módulos compartidos se quedan con el viejo.
+
+El síntoma es inconfundible y despista, porque el código del repo está bien:
+
+```
+ImportError: cannot import name 'DIR_FORMATOS' from 'shared.config'
+```
+
+La página importa algo que sí existe en `config.py`, pero el proceso tiene
+cargada en memoria la versión anterior del módulo.
+
+**Solución:** *Manage app* → menú `⋮` → **Reboot app**. Levanta el proceso de
+cero y reimporta todo.
+
+**Regla operativa:** todo push que toque `demos/shared/` exige reinicio. Y el
+día del evento, **no se hace push** — si algo se rompe, es en el peor momento
+posible y el modo respaldo no salva un `ImportError` (la página entera muere
+antes de dibujar el panel lateral).
+
 ---
 
 ## Antes del evento
 
 **24 horas antes**
-- [ ] Abrir la app en Streamlit Cloud (duerme sin tráfico; el primer arranque tarda ~1 min).
+- [ ] **Congelar el repo.** Ningún push a partir de aquí.
+- [ ] **Reiniciar la app** en Streamlit Cloud y esperar a que cargue sin errores.
+- [ ] Abrir la app (duerme sin tráfico; el primer arranque tarda ~1 min).
 - [ ] `python demos/pruebas_de_humo.py`.
 - [ ] Verificar saldo y límites de la key en `console.anthropic.com`.
 

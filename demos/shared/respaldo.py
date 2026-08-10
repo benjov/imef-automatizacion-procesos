@@ -40,17 +40,49 @@ def stream_falso(texto: str, pausa: float = 0.010) -> Iterator[str]:
         time.sleep(pausa)
 
 
+def modo_vivo_autorizado() -> bool:
+    """¿Esta visita puede gastar tokens?
+
+    La app es pública y su enlace se reparte por QR a toda una sesión. Si cada
+    asistente pudiera lanzar corridas en vivo, cada clic cobraría a la MISMA
+    API key y decenas de llamadas simultáneas chocarían contra los límites de
+    tasa — justo mientras el ponente está demostrando en vivo.
+
+    Por eso el valor por omisión es el **modo respaldo**: reproduce corridas
+    reales grabadas, se ve idéntico, cuesta cero y aguanta cualquier número de
+    visitantes. El modo en vivo se abre sólo con una clave en la URL.
+
+    · Con `CLAVE_MODO_VIVO` en los secretos:  ...streamlit.app/?vivo=LA_CLAVE
+    · Sin ella (uso local):                   ...localhost:8501/?vivo=1
+    """
+    try:
+        esperada = st.secrets.get("CLAVE_MODO_VIVO")
+    except (FileNotFoundError, KeyError):
+        esperada = None
+    recibida = st.query_params.get("vivo")
+    return recibida == esperada if esperada else recibida == "1"
+
+
 def toggle_respaldo() -> bool:
     """Interruptor discreto en el panel lateral. True = modo respaldo activo."""
+    if "modo_respaldo" not in st.session_state:
+        st.session_state["modo_respaldo"] = not modo_vivo_autorizado()
+
     with st.sidebar:
         st.markdown("---")
         activo = st.toggle(
             "Modo respaldo",
-            value=st.session_state.get("modo_respaldo", False),
+            value=st.session_state["modo_respaldo"],
             help="Reproduce corridas reales pre-grabadas. No llama a la API "
                  "ni necesita internet.",
         )
         st.session_state["modo_respaldo"] = activo
         if activo:
-            st.caption("🔌 Sin conexión. Reproduciendo una corrida grabada.")
+            st.caption(
+                "🔌 Reproduciendo una corrida real grabada — sin llamar a la "
+                "API. Es lo que ves aquí por omisión para que la demo aguante "
+                "a todo el mundo a la vez."
+            )
+        else:
+            st.caption("⚡ Modo en vivo: cada corrida llama a la API y cuesta.")
     return activo

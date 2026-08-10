@@ -129,8 +129,8 @@ bien no es un control interno.
 
 ## Hallazgos
 
-Cuatro cosas que no estaban previstas y que cambiaron el código. Las tres
-primeras acabaron siendo contenido de la charla.
+Cinco cosas que no estaban previstas y que cambiaron el código o la forma de
+operarlo. Las tres primeras acabaron siendo contenido de la charla.
 
 ### 1. El clasificador rechaza peticiones inocuas, de forma intermitente
 
@@ -176,7 +176,30 @@ trajo nada.
 Se subió el margen y se agregó comprobación explícita en lugar de indexar a
 ciegas.
 
-### 4. Menos herramientas por vuelta, menos latencia
+### 4. Streamlit Cloud no reinicia el proceso al hacer pull
+
+Al publicar los formatos de exportación, la app desplegada empezó a fallar con:
+
+```
+ImportError: cannot import name 'DIR_FORMATOS' from 'shared.config'
+```
+
+El código del repo estaba **completo y correcto** —`DIR_FORMATOS` existía en
+`config.py` y el import funcionaba en local—, lo que hizo perder tiempo buscando
+un error que no estaba ahí.
+
+La causa está en la bitácora de despliegue: `Uvicorn server started` aparece una
+sola vez, al arranque. Cuando llega un push, Community Cloud hace `git pull` y
+vuelve a **ejecutar el script**, pero no levanta un proceso nuevo. Las páginas se
+re-ejecutan con el código nuevo; los módulos de `shared/` siguen en `sys.modules`
+con la versión vieja. Resultado: una página nueva importando de un módulo viejo.
+
+Solución: *Reboot app*. Y la regla que quedó en el `README.md`: **todo push que
+toque `demos/shared/` exige reinicio, y el día del evento no se hace push** — un
+`ImportError` mata la página entera antes de dibujar el panel lateral, así que
+ni siquiera el modo respaldo lo salva.
+
+### 5. Menos herramientas por vuelta, menos latencia
 
 La primera versión de `consultar_politica` recibía **una** sección por llamada,
 y el agente pedía las siete de una en una: 14–15 llamadas y ~55 s por corrida.
@@ -226,3 +249,32 @@ habría visto.
   respaldo con el WiFi apagado.
 
 El checklist completo previo al evento está al final del `README.md`.
+
+---
+
+## Concurrencia: qué pasa si entran cien personas a la vez
+
+El enlace se reparte por QR a una sesión entera, así que hay que diseñar para
+ese momento. Los dos riesgos no son del mismo tamaño.
+
+**El serio no es de recursos, es de la API.** Todas las visitas comparten una
+sola key. Si cada asistente pudiera lanzar corridas en vivo, cada clic cobraría
+a esa key y decenas de llamadas simultáneas chocarían contra los límites de tasa
+— justo mientras el ponente demuestra. El daño no es la factura: es que la demo
+se cae sola, en el peor momento.
+
+Mitigación: **la app arranca en modo respaldo** para cualquier visitante
+(`shared/respaldo.py`, `modo_vivo_autorizado`). Reproduce corridas reales
+grabadas, se ve idéntico y cuesta cero. El modo en vivo se abre sólo con
+`CLAVE_MODO_VIVO` en la URL.
+
+Tiene un efecto secundario feliz: el modo respaldo, que se construyó como red
+contra la caída de red, resultó ser también la respuesta a la concurrencia.
+
+**El de recursos se atiende con caché.** Community Cloud da 1 GB compartido por
+app. El cruce, las señales y la lectura de archivos están en `@st.cache_data`,
+que se comparte entre sesiones: el trabajo se hace una vez, no una por
+visitante.
+
+**Y la recomendación operativa que vale más que las dos anteriores:** el ponente
+demuestra desde local. Así queda aislado del tráfico de su propia audiencia.
