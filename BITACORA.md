@@ -51,6 +51,18 @@ el prompt fuera corto.
 Se retiró el hueco para un anuncio comercial en la presentación y se documentó
 la fuga de ruta absoluta que el cuaderno de respaldo guardaba en sus salidas.
 
+Se agregaron los **cuatro formatos de exportación bancaria**
+(`demos/data/formatos_reales/`). La demo arrancaba con un CSV limpio, que es
+justo lo que nadie recibe: faltaba mostrar el problema antes de resolverlo. No
+alimentan al motor —son narrativa— pero son el argumento visual de por qué la
+primera capa determinista existe.
+
+Los nombres de institución quedaron genéricos por una razón de credibilidad, no
+de estilo: los patrones de formato son reales y reconocibles, pero afirmar "así
+exporta tal banco" es una afirmación verificable que basta con que falle una vez,
+delante de alguien que usa ese banco a diario, para costar la confianza del resto
+de la sesión.
+
 ---
 
 ## Decisiones, con su medición

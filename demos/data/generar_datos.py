@@ -233,6 +233,90 @@ mov_banco(date(2026, 9, 30), "TRASP INV", "TRASPASO A CUENTA INVERSION 7781", -2
 # --------------------------------------------------------------------------
 # 3) Escritura de archivos.
 # --------------------------------------------------------------------------
+def escribir_formatos_reales() -> None:
+    """Los mismos movimientos, tal como los entregan cuatro instituciones.
+
+    Sirven SÓLO para la narrativa de la demo: antes de conciliar hay que
+    normalizar, y ese pegamento es trabajo real que nadie ve en las
+    presentaciones. Cada archivo reproduce un patrón que quien concilia
+    reconoce de inmediato.
+
+    Los nombres de banco son genéricos a propósito. Los patrones de formato
+    son reales y reconocibles; atribuirlos a una institución concreta sería
+    afirmar algo que no se puede verificar, y basta con que una persona del
+    público use ese banco a diario para que la demo pierda credibilidad.
+    """
+    dir_f = DIR / "formatos_reales"
+    dir_f.mkdir(exist_ok=True)
+    muestra = banco[:14]
+
+    # --- Banco A: CSV con preámbulo. La primera fila NO son los encabezados. --
+    with (dir_f / "banco_a_export.csv").open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["ESTADO DE CUENTA ENLACE EMPRESARIAL"])
+        w.writerow(["CLIENTE:", EMPRESA.upper()])
+        w.writerow(["No. DE CUENTA:", CUENTA, "PERIODO:", PERIODO.upper()])
+        w.writerow(["SALDO INICIAL:", f"{SALDO_INICIAL:,.2f}"])
+        w.writerow([])
+        w.writerow(["FECHA", "DESCRIPCION", "CARGO", "ABONO", "SALDO"])
+        saldo = SALDO_INICIAL
+        for r in muestra:
+            saldo = round(saldo + r["flujo"], 2)
+            w.writerow([r["fecha"].strftime("%d/%m/%Y"), r["descripcion"],
+                        f"{-r['flujo']:,.2f}" if r["flujo"] < 0 else "",
+                        f"{r['flujo']:,.2f}" if r["flujo"] > 0 else "",
+                        f"{saldo:,.2f}"])
+        w.writerow([])
+        w.writerow(["", "", "", "SALDO FINAL:", f"{saldo:,.2f}"])
+
+    # --- Banco B: una sola columna de monto, con signo. Y DOS fechas. --------
+    with (dir_f / "banco_b_movimientos.csv").open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["fecha_operacion", "fecha_aplicacion", "referencia",
+                    "concepto", "monto", "divisa"])
+        for r in muestra:
+            aplicacion = habil_mas(r["fecha"], 1) if r["flujo"] < 0 else r["fecha"]
+            w.writerow([r["fecha"].isoformat(), aplicacion.isoformat(),
+                        r["referencia"], r["descripcion"],
+                        f"{r['flujo']:.2f}", "MXN"])
+
+    # --- Banco C: importes con signo ARRASTRADO y concepto truncado. --------
+    #     Herencia de sistemas mainframe: el negativo va al final del número.
+    with (dir_f / "banco_c_export.csv").open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["FEC_OPER", "FOLIO", "DESC", "IMPORTE", "IND"])
+        for r in muestra:
+            importe = f"{abs(r['flujo']):,.2f}" + ("-" if r["flujo"] < 0 else "")
+            w.writerow([r["fecha"].strftime("%Y%m%d"), r["referencia"],
+                        r["descripcion"][:24], importe,
+                        "D" if r["flujo"] < 0 else "C"])
+
+    # --- Banco D: ancho fijo extraído de un PDF, con encabezados repetidos. --
+    lineas = []
+    saldo = SALDO_INICIAL
+    for pagina in range(2):
+        lineas += [
+            "BANCO D, S.A.  INSTITUCION DE BANCA MULTIPLE".center(78),
+            f"ESTADO DE CUENTA AL {date(2026, 9, 30):%d/%m/%Y}".center(78),
+            f"CUENTA {CUENTA}".center(78),
+            "",
+            "FECHA      CONCEPTO                                RETIRO    DEPOSITO",
+            "-" * 78,
+        ]
+        for r in muestra[pagina * 7:(pagina + 1) * 7]:
+            saldo = round(saldo + r["flujo"], 2)
+            retiro = f"{-r['flujo']:,.2f}" if r["flujo"] < 0 else ""
+            deposito = f"{r['flujo']:,.2f}" if r["flujo"] > 0 else ""
+            lineas.append(f"{r['fecha']:%d/%m/%y}   {r['descripcion'][:36]:<36} "
+                          f"{retiro:>11} {deposito:>11}")
+        lineas += ["", f"Pagina {pagina + 1} de 7".rjust(78),
+                   "ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI".center(78),
+                   "\f"]
+    (dir_f / "banco_d_extracto.txt").write_text("\n".join(lineas), encoding="utf-8")
+
+    print(f"Formatos reales  :    4 archivos     ->  formatos_reales/")
+
+
 def escribir() -> None:
     banco.sort(key=lambda r: (r["fecha"], r["referencia"]))
     libros.sort(key=lambda r: (r["fecha"], r["poliza"]))
@@ -288,3 +372,4 @@ def escribir() -> None:
 
 if __name__ == "__main__":
     escribir()
+    escribir_formatos_reales()

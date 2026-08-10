@@ -18,8 +18,9 @@ import streamlit as st
 from shared import analisis, estilos, respaldo, texto
 from shared.cliente import obtener_cliente
 from shared.config import (ARCHIVO_BANCO, ARCHIVO_CARTERA, ARCHIVO_LIBROS,
-                           ARCHIVO_POLITICAS, BANCO, CUENTA, EMPRESA,
-                           ICONO_CONFIANZA, PERIODO, costo_mxn)
+                           ARCHIVO_POLITICAS, BANCO, CUENTA, DIR_FORMATOS,
+                           EMPRESA, FORMATOS_REALES, ICONO_CONFIANZA, PERIODO,
+                           costo_mxn)
 from shared.motor import cargar_banco, cargar_libros, conciliar, pistas
 
 estilos.aplicar()
@@ -53,6 +54,39 @@ with st.expander("Ver los archivos tal como salen de los sistemas"):
         "Dos sistemas que no se hablan: el banco identifica con folio SPEI, la "
         "contabilidad con número de póliza. No hay una llave común — por eso "
         "esto se concilia por importe y fecha, y por eso duele."
+    )
+
+with st.expander("⚠️  Y así llegan en realidad: cuatro bancos, cuatro formatos"):
+    st.markdown(
+        "Los dos archivos de arriba ya vienen limpios. **Nadie recibe eso.** "
+        "Estos son los mismos movimientos tal como los entrega cada "
+        "institución — y una empresa con cuentas en cuatro bancos recibe los "
+        "cuatro, cada mes."
+    )
+    for etiqueta, tab in zip([f[0] for f in FORMATOS_REALES],
+                             st.tabs([f[0] for f in FORMATOS_REALES])):
+        _, archivo, lenguaje, dolor = next(f for f in FORMATOS_REALES
+                                           if f[0] == etiqueta)
+        with tab:
+            ruta = DIR_FORMATOS / archivo
+            if ruta.exists():
+                crudo = ruta.read_text(encoding="utf-8")
+                st.code("\n".join(crudo.splitlines()[:12]), language=lenguaje)
+                texto.markdown(f"**Lo que duele:** {dolor}")
+            else:
+                st.warning(f"Falta `{archivo}`. Corre "
+                           "`python demos/data/generar_datos.py`.")
+
+    st.info(
+        "Ninguno trae una llave que cruce contra la contabilidad, y los cuatro "
+        "cambian de formato sin avisar. **Normalizar esto es la primera capa "
+        "determinista** — el trabajo que nadie presume en una presentación de "
+        "IA y sin el cual no hay nada que conciliar.",
+        icon="🔧",
+    )
+    st.caption(
+        "Formatos representativos, no reproducciones de ninguna institución. "
+        "Los nombres de banco son genéricos; los patrones sí son reales."
     )
 
 # ============================== PASO 2 =====================================

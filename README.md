@@ -98,6 +98,24 @@ El caso 7 es una trampa deliberada: hay una coincidencia exacta *y* otra factura
 a $15 de distancia. La política prohíbe aplicar cuando hay ambigüedad, y el
 modelo tiene que notarlo.
 
+### Cómo llegan de verdad los estados de cuenta
+
+`demos/data/formatos_reales/` tiene los mismos movimientos exportados por cuatro
+instituciones distintas. Sirven sólo para la narrativa de la demo — el motor
+trabaja sobre la versión ya normalizada — pero son el argumento visual de por
+qué existe la primera capa determinista:
+
+| Archivo | El patrón |
+|---|---|
+| `banco_a_export.csv` | Encabezados en el renglón 6: arriba membrete, abajo un total |
+| `banco_b_movimientos.csv` | Dos fechas, operación y aplicación, que no coinciden |
+| `banco_c_export.csv` | Signo negativo **arrastrado** (`169,052.96-`) y concepto truncado a 24 caracteres |
+| `banco_d_extracto.txt` | Ancho fijo extraído de un PDF, con membrete repetido por página |
+
+Los nombres de institución son **genéricos a propósito**. Los patrones de
+formato son reales y reconocibles; atribuirlos a un banco concreto sería afirmar
+algo que no se puede verificar delante de alguien que lo usa a diario.
+
 ---
 
 ## El agente y sus controles

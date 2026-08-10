@@ -57,10 +57,35 @@ DIR_DEMOS = Path(__file__).resolve().parent.parent      # demos/
 DIR_DATA = DIR_DEMOS / "data"
 DIR_RESPALDOS = DIR_DATA / "respaldos"
 
+DIR_FORMATOS = DIR_DATA / "formatos_reales"
+
 ARCHIVO_BANCO = DIR_DATA / "estado_cuenta.csv"
 ARCHIVO_LIBROS = DIR_DATA / "auxiliar_contable.csv"
 ARCHIVO_CARTERA = DIR_DATA / "cuentas_por_cobrar.csv"
 ARCHIVO_POLITICAS = DIR_DATA / "politicas_contables.md"
+
+# Cómo llegan de verdad los estados de cuenta. Sirven sólo para la narrativa
+# de la Demo 1: el motor trabaja sobre la versión ya normalizada.
+#
+# Los nombres de institución son genéricos a propósito — los patrones de
+# formato son reales, pero atribuirlos a un banco concreto sería afirmar algo
+# que no se puede verificar delante de alguien que lo usa a diario.
+FORMATOS_REALES = [
+    ("Banco A · CSV con membrete", "banco_a_export.csv", "csv",
+     "Los encabezados reales están en el renglón 6: arriba hay membrete y "
+     "abajo un total. Un lector ingenuo se rompe en la primera línea."),
+    ("Banco B · dos fechas", "banco_b_movimientos.csv", "csv",
+     "Trae fecha de operación Y fecha de aplicación, y no siempre coinciden. "
+     "¿Contra cuál concilias? De esa decisión salen la mitad de los desfases."),
+    ("Banco C · signo arrastrado", "banco_c_export.csv", "csv",
+     "El negativo va al final del número: `169,052.96-`. Herencia de "
+     "mainframe. Y el concepto viene truncado a 24 caracteres, así que la "
+     "referencia del proveedor se pierde."),
+    ("Banco D · texto de un PDF", "banco_d_extracto.txt", "text",
+     "No es un archivo de datos: es texto extraído de un PDF. Ancho fijo, "
+     "membrete repetido en cada página, saltos de página y leyenda legal. "
+     "Es el peor caso — y es el más común."),
+]
 
 # --------------------------------------------------------------------------
 # Contexto del caso (aparece en pantalla y en los prompts)
